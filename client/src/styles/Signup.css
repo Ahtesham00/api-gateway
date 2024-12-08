@@ -1,0 +1,72 @@
+/* General input styling */
+.custom-input {
+  background-color: #3b364c;
+  color: white;
+  border: 1px solid transparent; /* No visible border by default */
+  border-radius: 6px;
+  padding: 8px 12px;
+  box-sizing: border-box; /* Include padding and border in total size */
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+/* Focus state: Show the purple border when the input is focused */
+.custom-input:focus {
+  border: 1px solid #6e54b5; /* Purple border on focus */
+  outline: none; /* Remove default focus outline */
+}
+
+/* Hover state: Apply only when the input is not focused */
+.custom-input:hover:not(:focus) {
+  border: 1px solid transparent; /* No border on hover if input is focused */
+  box-shadow: none; /* Prevent hover glow */
+}
+
+/* Placeholder styling */
+.custom-input::placeholder {
+  color: white;
+  opacity: 0.2; /* Subtle placeholder visibility */
+  font-weight: normal;
+}
+
+
+
+
+
+
+
+
+/* Password field-specific styling */
+.custom-password-input {
+  background-color: #3b364c;
+  color: white;
+  border: 1px solid transparent; /* No visible border by default */
+  border-radius: 6px;
+  padding: 8px 12px;
+  box-sizing: border-box; /* Include padding and border in total size */
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+/* Focus state: Show the purple border when the input is focused */
+.custom-password-input:focus-within {
+  border: 1px solid #6e54b5; /* Purple border on focus */
+  outline: none; /* Remove default focus outline */
+  box-shadow: none; /* Ensure no glow on focus */
+}
+
+/* Prevent hover styling entirely */
+.custom-password-input:hover:not(:focus-within) {
+  border: 1px solid transparent; /* Keep border invisible on hover */
+}
+
+/* Placeholder styling */
+.custom-password-input input::placeholder {
+  color: white;
+  opacity: 0.2; /* Subtle placeholder visibility */
+  font-weight: normal;
+}
+
+/* Password toggle icon styling */
+.custom-password-input .ant-input-password-icon {
+  color: white !important;
+  opacity: 0.5; /* Subtle icon styling */
+}
