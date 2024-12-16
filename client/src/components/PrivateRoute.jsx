@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const PrivateRoute = ({ children }) => {
   const { access_token } = useSelector((state) => state.auth);
 
-  // Redirect to login if no access token
+  // If no access token, redirect to login
   return access_token ? children : <Navigate to="/" />;
 };
 

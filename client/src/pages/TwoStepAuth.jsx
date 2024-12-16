@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setTokens  } from "../store";
 import axios from "axios";
 import { Button, Typography, Space, Row, Col, Input, message } from "antd";
 
 const { Title, Text } = Typography;
 
 const TwoStepAuth = () => {
+  const dispatch = useDispatch();
   const email = useSelector((state) => state.auth.email);
   // console.log("Email retrieved from Redux:", email);
   const [code, setCode] = useState("");
@@ -21,9 +23,10 @@ const TwoStepAuth = () => {
       const response = await axios.post("/v1/auth/verify-2fa", payload, {
         headers: { "Content-Type": "application/json" },
       });
-
+      console.log("response", response);
       if (response.data.success) {
         const { access_token, refresh_token } = response.data.data;
+        console.log("response",response.data.data);
         // Save tokens in Redux
         dispatch(setTokens({ access_token, refresh_token }));
 

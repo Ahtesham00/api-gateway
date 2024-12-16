@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import TwoStepAuth from "./pages/TwoStepAuth";
+import KnowledgeBasePanel from "./pages/KnowledgeBasePanel";
+import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
 
 const App = () => {
   return (
@@ -36,12 +38,25 @@ const App = () => {
         }
       />
 
+      {/* Protect this route */}
       <Route
         path="/home"
         element={
-          <MainLayout hideSidebar={false}>
-            <Home />
-          </MainLayout>
+          <PrivateRoute>
+            <MainLayout hideSidebar={false}>
+              <Home />
+            </MainLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/knowledge-based"
+        element={
+          <PrivateRoute>
+            <MainLayout hideSidebar={false}>
+              <KnowledgeBasePanel />
+            </MainLayout>
+          </PrivateRoute>
         }
       />
     </Routes>
