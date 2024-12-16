@@ -5,14 +5,11 @@ import "../styles/MainLayout.css";
 
 const { Content } = Layout;
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ children, hideSidebar = false }) => {
   return (
     <Layout style={{ minHeight: "100vh" }} className="site-layout">
-      {/* Sidebar */}
-      <Sidebar />
-
-      {/* Main Content Area */}
-      <Content className="main-content" width={840}>
+      {!hideSidebar && <Sidebar />}
+      <Content className="main-content" style={{ width: hideSidebar ? "100%" : "calc(100% - 260px)" }}>
         {children}
       </Content>
     </Layout>

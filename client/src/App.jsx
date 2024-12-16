@@ -12,32 +12,35 @@ const App = () => {
       <Route
         path="/"
         element={
-          <MainLayout>
-            <Home />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/two-step-auth"
-        element={
-          <MainLayout>
-            <TwoStepAuth />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/login"
-        element={
-          <MainLayout>
+          <MainLayout hideSidebar={true}>
             <Login />
           </MainLayout>
         }
       />
+
+      <Route
+        path="/two-step-auth"
+        element={
+          <MainLayout hideSidebar={true}>
+            <TwoStepAuth />
+          </MainLayout>
+        }
+      />
+
       <Route
         path="/signup"
         element={
-          <MainLayout>
+          <MainLayout hideSidebar={true}>
             <Signup />
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/home"
+        element={
+          <MainLayout hideSidebar={false}>
+            <Home />
           </MainLayout>
         }
       />

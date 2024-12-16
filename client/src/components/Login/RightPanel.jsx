@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux"; // Import useDispatch from react-redux
+import { setEmail } from "../../store"; // Import the action
 import axios from "axios";
 import { Button, Typography, Space, Row, Col, message } from "antd";
 import googleLogo from "../../assets/google-logo.svg";
@@ -8,11 +10,11 @@ import InputField from "../common/InputField";
 const { Title, Text, Link } = Typography;
 
 const RightPanel = () => {
-  // Form state
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const dispatch = useDispatch(); // Initialize dispatch
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -25,38 +27,67 @@ const RightPanel = () => {
 
   // Handle form submission
   const handleSubmit = async () => {
+    console.log("handleSubmit triggered"); // Check if this log appears
     if (!formData.email || !formData.password) {
       return message.error("Email and Password are required.");
     }
-
+   
+    console.log("Email before dispatching to Redux:", formData.email);
+    dispatch(setEmail(formData.email));
+    console.log("Dispatched email to Redux");
+    
     const payload = {
       email: formData.email,
       password: formData.password,
     };
 
+    console.log("payload:", payload);
+
     try {
-      // Log the payload to the console
-      console.log("Payload being sent to the server:", payload);
+      console.log("Making API call with payload:", payload); // Log the payload
+      const loadingMsg = message.loading("Logging in...", 0);
 
-      const response = await axios.post(
-        "/v1/auth/v1/login", // Endpoint for login
-        payload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post("/v1/auth/login", payload, {
+        headers: { "Content-Type": "application/json" },
+      });
 
-      // If the request is successful, handle the response
-      message.success("Login successful!");
-      console.log("Server response:", response.data);
+      console.log("Login API Response:", response); // Log the full response
+
+      if (response.data.success) {
+        message.success(
+          response.data.message || "Login successful! Redirecting to 2FA."
+        );
+        window.location.href = "/two-step-auth";
+      } else {
+        message.error(response.data.message || "Login failed.");
+      }
+
+      loadingMsg();
     } catch (error) {
-      // Handle error
-      console.error(error);
+      console.error("Error during login:", error); // Log error details
       message.error(
         error.response?.data?.message ||
           "Login failed. Please check your credentials and try again."
+      );
+    }
+  };
+
+  // Separate function for API call
+  const login = async (payload) => {
+    try {
+      const response = await axios.post("/v1/auth/login", payload, {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      return response.data; // Return the response data directly
+    } catch (error) {
+      // Log the error for debugging
+      console.error("API Error:", error);
+
+      // Throw an error with a user-friendly message
+      throw new Error(
+        error.response?.data?.message ||
+          "Unable to reach the server. Please try again later."
       );
     }
   };

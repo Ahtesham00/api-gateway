@@ -1,31 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 import { Button, Typography, Space, Row, Col, Input, message } from "antd";
-import "../styles/Signup.css";
 
 const { Title, Text } = Typography;
 
 const TwoStepAuth = () => {
-  const onChange = (text) => {
-    console.log("onChange:", text);
-  };
+  const email = useSelector((state) => state.auth.email);
+  // console.log("Email retrieved from Redux:", email);
+  const [code, setCode] = useState("");
 
-  const onInput = (value) => {
-    console.log("onInput:", value);
-  };
-
-  const sharedProps = {
-    onChange,
-    onInput,
-  };
-
-  const handleSubmit = () => {
-    if (!sharedProps.onInput) {
-      return message.error("Please enter the OTP.");
+  const handleVerify = async () => {
+    if (!code) {
+      return message.error("Please enter the 2FA code.");
     }
 
-    // Simulating submission (replace with your API call)
-    message.success("OTP verified successfully!");
-    console.log("OTP submitted:", sharedProps.onInput);
+    const payload = { email, code };
+    console.log("payload", payload);
+    try {
+      const response = await axios.post("/v1/auth/verify-2fa", payload, {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.data.success) {
+        const { access_token, refresh_token } = response.data.data;
+        // Save tokens in Redux
+        dispatch(setTokens({ access_token, refresh_token }));
+
+        // Store tokens and redirect to home page
+        localStorage.setItem("access_token", access_token);
+        localStorage.setItem("refresh_token", refresh_token);
+        window.location.href = "/home";
+      } else {
+        message.error(response.data.message || "Verification failed.");
+      }
+    } catch (error) {
+      message.error(
+        error.response?.data?.message || "Failed to verify the code."
+      );
+    }
   };
 
   return (
@@ -62,41 +75,28 @@ const TwoStepAuth = () => {
             textAlign: "center",
           }}
         >
-          <Title
-            level={1}
-            style={{
-              color: "white",
-              fontSize: "clamp(1.5rem, 2rem, 2.5rem)",
-              marginBottom: "0px",
-            }}
-          >
+          <Title level={1} style={{ color: "white" }}>
             Two-Step Authentication
           </Title>
           <Text style={{ color: "#b3b3b3" }}>
-            Enter the 6-digit code sent to your email or phone
+            Enter the 6-digit code sent to your email or phone.
           </Text>
-          <Space
-            direction="vertical"
-            size="small"
-            style={{ width: "100%", alignItems: "center" }}
-          >
-            {/* OTP Input with formatter */}
-            <Input.OTP
-              formatter={(str) => str.toUpperCase()} // Convert input to uppercase
-              {...sharedProps} // Attach shared properties
-              style={{
-                backgroundColor: "#3b364c",
-                color: "white",
-                textAlign: "center",
-                fontWeight: "bold",
-                fontSize: "1.2rem",
-                letterSpacing: "5px",
-                width: "100%",
-                border: "none",
-                borderRadius: "8px",
-              }}
-            />
-          </Space>
+          <Input
+            placeholder="Enter 2FA code"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            style={{
+              backgroundColor: "#3b364c",
+              color: "white",
+              textAlign: "center",
+              fontWeight: "bold",
+              fontSize: "1.2rem",
+              letterSpacing: "5px",
+              width: "100%",
+              border: "none",
+              borderRadius: "8px",
+            }}
+          />
           <Button
             type="primary"
             size="large"
@@ -106,7 +106,7 @@ const TwoStepAuth = () => {
               borderRadius: "8px",
               width: "100%",
             }}
-            onClick={handleSubmit}
+            onClick={handleVerify}
           >
             Verify OTP
           </Button>
