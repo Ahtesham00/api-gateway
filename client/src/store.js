@@ -19,11 +19,11 @@ const authSlice = createSlice({
       state.access_token = action.payload.access_token;
       state.refresh_token = action.payload.refresh_token;
     },
-    // clearAuth: (state) => {
-    //   state.email = null;
-    //   state.access_token = null;
-    //   state.refresh_token = null;
-    // },
+    clearAuth: (state) => {
+      state.email = null;
+      state.access_token = null;
+      state.refresh_token = null;
+    },
   },
 });
 

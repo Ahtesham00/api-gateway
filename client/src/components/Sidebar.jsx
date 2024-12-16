@@ -1,5 +1,8 @@
 import React from "react";
-import { Layout, Menu, Typography, Avatar, Space, Divider } from "antd";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { clearAuth } from "../store"; // Import the clearAuth action
+import { Layout, Menu, Typography, Avatar, Space, Divider, Modal  } from "antd";
 import {
   HomeOutlined,
   AppstoreOutlined,
@@ -17,6 +20,29 @@ const { Sider } = Layout;
 const { Text } = Typography;
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    console.log("in lgout function");
+    Modal.confirm({
+      title: "Logout",
+      content: "Are you sure you want to log out?",
+      okText: "Yes",
+      cancelText: "No",
+      onOk: () => {
+        // Clear Redux state
+        dispatch(clearAuth());
+
+        // Clear localStorage
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+
+        // Redirect to login
+        navigate("/");
+      },
+    });
+  };
   return (
     <Sider className="custom-sidebar" width={260}>
       <Space
@@ -110,8 +136,12 @@ const Sidebar = () => {
                 borderRight: "none",
               }}
             >
-              <Menu.Item key="7" icon={<LogoutOutlined />}>
-                <Link to="/logout">Log out</Link>
+              <Menu.Item
+                key="logout"
+                icon={<LogoutOutlined />}
+                onClick={handleLogout}
+              >
+                Logout
               </Menu.Item>
             </Menu>
           </div>

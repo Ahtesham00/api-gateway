@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setTokens  } from "../store";
+import { setTokens } from "../store";
 import axios from "axios";
 import { Button, Typography, Space, Row, Col, Input, message } from "antd";
 
@@ -9,24 +9,49 @@ const { Title, Text } = Typography;
 const TwoStepAuth = () => {
   const dispatch = useDispatch();
   const email = useSelector((state) => state.auth.email);
-  // console.log("Email retrieved from Redux:", email);
-  const [code, setCode] = useState("");
 
+  // State for the 6 OTP input fields
+  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const inputRefs = useRef([]);
+
+  // Handle OTP input change
+  const handleChange = (value, index) => {
+    const updatedOtp = [...otp];
+    updatedOtp[index] = value.slice(0, 1); // Ensure only one character
+    setOtp(updatedOtp);
+
+    // Focus on the next input if available
+    if (value && index < 5) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  // Handle backspace navigation
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  };
+
+  // Handle OTP verification
   const handleVerify = async () => {
-    if (!code) {
-      return message.error("Please enter the 2FA code.");
+    const code = otp.join(""); // Combine OTP fields into a single string
+    if (code.length !== 6) {
+      return message.error("Please enter a valid 6-digit OTP.");
     }
 
     const payload = { email, code };
     console.log("payload", payload);
+
     try {
       const response = await axios.post("/v1/auth/verify-2fa", payload, {
         headers: { "Content-Type": "application/json" },
       });
-      console.log("response", response);
+
       if (response.data.success) {
         const { access_token, refresh_token } = response.data.data;
-        console.log("response",response.data.data);
+        console.log("response", response.data.data);
+
         // Save tokens in Redux
         dispatch(setTokens({ access_token, refresh_token }));
 
@@ -84,22 +109,40 @@ const TwoStepAuth = () => {
           <Text style={{ color: "#b3b3b3" }}>
             Enter the 6-digit code sent to your email or phone.
           </Text>
-          <Input
-            placeholder="Enter 2FA code"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
+
+          {/* OTP Input Fields */}
+          <Space
+            size="small"
             style={{
-              backgroundColor: "#3b364c",
-              color: "white",
-              textAlign: "center",
-              fontWeight: "bold",
-              fontSize: "1.2rem",
-              letterSpacing: "5px",
+              display: "flex",
+              justifyContent: "center",
               width: "100%",
-              border: "none",
-              borderRadius: "8px",
             }}
-          />
+          >
+            {otp.map((digit, index) => (
+              <Input
+                key={index}
+                value={digit}
+                onChange={(e) => handleChange(e.target.value, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                ref={(el) => (inputRefs.current[index] = el)}
+                maxLength={1}
+                style={{
+                  backgroundColor: "#3b364c",
+                  color: "white",
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  fontSize: "1.2rem",
+                  width: "3rem",
+                  height: "3rem",
+                  border: "none",
+                  borderRadius: "8px",
+                  margin: "0 5px",
+                }}
+              />
+            ))}
+          </Space>
+
           <Button
             type="primary"
             size="large"
