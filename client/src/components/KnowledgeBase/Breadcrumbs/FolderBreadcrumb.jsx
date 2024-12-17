@@ -103,7 +103,8 @@ const FolderBreadcrumb = ({
   const folderOptionsMenu = (folderName) => (
     <Menu>
       <Menu.Item
-        onClick={() => {
+        onClick={(e) => {
+          e.domEvent.stopPropagation(); // Stop propagation
           setFolderToDelete(folderName);
           setDeleteModalVisible(true);
         }}
@@ -135,18 +136,29 @@ const FolderBreadcrumb = ({
           </Breadcrumb.Item>
           <Breadcrumb.Item>{knowledgeBaseName}</Breadcrumb.Item>
         </Breadcrumb>
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setIsModalVisible(true)}
-        >
-          New Folder
-        </Button>
+        {folders.length !== 0 && (
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => setIsModalVisible(true)}
+          >
+            New Folder
+          </Button>
+        )}
       </div>
 
       {/* Loading or Folder List */}
       {loading ? (
-        <Spin tip="Loading Folders..." />
+        <div
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100%", // Full height of the parent container
+    }}
+  >
+    <Spin tip="Loading Folders..." />
+  </div>
       ) : folders.length === 0 ? (
         <Empty
           description={
@@ -183,7 +195,9 @@ const FolderBreadcrumb = ({
             renderItem={(item) => (
               <List.Item
                 key={item._id}
-                onClick={() => onNavigateToFolder(knowledgeBaseName, item.folder_name)}
+                onClick={() =>
+                  onNavigateToFolder(knowledgeBaseName, item.folder_name)
+                }
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -201,7 +215,11 @@ const FolderBreadcrumb = ({
                   overlay={folderOptionsMenu(item.folder_name)}
                   trigger={["click"]}
                 >
-                  <Button type="text" icon={<EllipsisOutlined />} />
+                  <Button
+                    type="text"
+                    icon={<EllipsisOutlined />}
+                    onClick={(e) => e.stopPropagation()}
+                  />
                 </Dropdown>
               </List.Item>
             )}

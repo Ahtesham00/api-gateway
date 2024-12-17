@@ -143,10 +143,7 @@ const FileBreadcrumb = ({ knowledgeBaseName, folderName, onBack }) => {
       >
         Download
       </Menu.Item>
-      <Menu.Item
-        danger
-        onClick={() => handleDeleteFile(filename)}
-      >
+      <Menu.Item danger onClick={() => handleDeleteFile(filename)}>
         Delete
       </Menu.Item>
     </Menu>
@@ -162,7 +159,10 @@ const FileBreadcrumb = ({ knowledgeBaseName, folderName, onBack }) => {
           marginBottom: "16px",
         }}
       >
-        <Breadcrumb separator=">" style={{ fontSize: "16px", fontWeight: "500" }}>
+        <Breadcrumb
+          separator=">"
+          style={{ fontSize: "16px", fontWeight: "500" }}
+        >
           <Breadcrumb.Item
             onClick={onBack}
             style={{ cursor: "pointer", color: "#1890ff" }}
@@ -170,7 +170,8 @@ const FileBreadcrumb = ({ knowledgeBaseName, folderName, onBack }) => {
             <HomeOutlined style={{ marginRight: "5px" }} /> Knowledge Bases
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <FolderOpenOutlined style={{ marginRight: "5px" }} /> {knowledgeBaseName}
+            <FolderOpenOutlined style={{ marginRight: "5px" }} />{" "}
+            {knowledgeBaseName}
           </Breadcrumb.Item>
           <Breadcrumb.Item>{folderName}</Breadcrumb.Item>
         </Breadcrumb>
@@ -220,8 +221,15 @@ const FileBreadcrumb = ({ knowledgeBaseName, folderName, onBack }) => {
                   <FileOutlined style={{ marginRight: "10px" }} />
                   <span>{item.original_filename}</span>
                 </div>
-                <Dropdown overlay={fileOptionsMenu(item.original_filename)} trigger={["click"]}>
-                  <Button type="text" icon={<EllipsisOutlined />} />
+                <Dropdown
+                  overlay={fileOptionsMenu(item.original_filename)}
+                  trigger={["click"]}
+                >
+                  <Button
+                    type="text"
+                    icon={<EllipsisOutlined />}
+                    onClick={(e) => e.stopPropagation()}
+                  />
                 </Dropdown>
               </List.Item>
             )}

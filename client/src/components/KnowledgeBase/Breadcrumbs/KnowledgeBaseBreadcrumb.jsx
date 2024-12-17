@@ -1,7 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Breadcrumb, Button, List, Spin, Empty, message, Modal, Input, Avatar, Tooltip, Dropdown, Menu } from "antd";
-import { HomeOutlined, PlusOutlined, DatabaseOutlined, EllipsisOutlined } from "@ant-design/icons";
-import { getKnowledgeBases, createKnowledgeBase, deleteKnowledgeBase } from "../../../api/knowledgeBaseApi";
+import {
+  Breadcrumb,
+  Button,
+  List,
+  Spin,
+  Empty,
+  message,
+  Modal,
+  Input,
+  Avatar,
+  Tooltip,
+  Dropdown,
+  Menu,
+} from "antd";
+import {
+  HomeOutlined,
+  PlusOutlined,
+  DatabaseOutlined,
+  EllipsisOutlined,
+} from "@ant-design/icons";
+import {
+  getKnowledgeBases,
+  createKnowledgeBase,
+  deleteKnowledgeBase,
+} from "../../../api/knowledgeBaseApi";
 
 const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
   const [knowledgeBases, setKnowledgeBases] = useState([]);
@@ -78,9 +100,15 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
     setIsDeleteModalVisible(true);
   };
 
+  // Dropdown menu for folder options
   const moreOptionsMenu = (item) => (
     <Menu>
-      <Menu.Item onClick={() => showDeleteModal(item.knowledge_base_name)}>
+      <Menu.Item
+        onClick={(e) => {
+          e.domEvent.stopPropagation(); // Stop propagation
+          showDeleteModal(item.knowledge_base_name);
+        }}
+      >
         Delete
       </Menu.Item>
     </Menu>
@@ -88,22 +116,59 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <Breadcrumb separator=">" style={{ fontSize: "16px", fontWeight: "500", color: "#333" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Breadcrumb
+          separator=">"
+          style={{ fontSize: "16px", fontWeight: "500", color: "#333" }}
+        >
           <Breadcrumb.Item>
             <HomeOutlined style={{ marginRight: "5px" }} /> Knowledge Bases
           </Breadcrumb.Item>
         </Breadcrumb>
-
-        <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>
-          New Knowledge Base
-        </Button>
+        {knowledgeBases.length !== 0 && (
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => setIsModalVisible(true)}
+          >
+            New Knowledge Base
+          </Button>
+        )}
       </div>
 
       {loading ? (
-        <Spin tip="Loading Knowledge Bases..." style={{ marginTop: "20px" }} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%", // Full height of the parent container
+          }}
+        >
+          <Spin tip="Loading Knowledge Base..." />
+        </div>
       ) : knowledgeBases.length === 0 ? (
-        <Empty description="No knowledge bases found" style={{ marginTop: "20px" }} />
+        <Empty
+          description={
+            <div>
+              <p>No knowledge bases found</p>
+              <Button
+                type="primary"
+                icon={<PlusOutlined />}
+                onClick={() => setIsModalVisible(true)}
+              >
+                New Knowledge Base
+              </Button>
+            </div>
+          }
+          style={{ marginTop: "20px" }}
+        />
       ) : (
         <>
           {/* Column Headers */}
@@ -152,7 +217,11 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
                 <div style={{ flex: 0.2, textAlign: "right" }}>
                   <Dropdown overlay={moreOptionsMenu(item)} trigger={["click"]}>
                     <Tooltip title="More Options">
-                      <Button type="text" icon={<EllipsisOutlined />} />
+                      <Button
+                        type="text"
+                        icon={<EllipsisOutlined />}
+                        onClick={(e) => e.stopPropagation()}
+                      />
                     </Tooltip>
                   </Dropdown>
                 </div>
