@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // Defaults to localStorage for web
 import { createSlice } from "@reduxjs/toolkit";
 
-// Define the auth slice
+// =================== Auth Slice ===================
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -29,19 +29,41 @@ const authSlice = createSlice({
 
 export const { setEmail, setTokens, clearAuth } = authSlice.actions;
 
-// Persist configuration for auth slice
-const persistConfig = {
-  key: "auth", // Key under which state will be stored in localStorage
+// =================== Sidebar Slice ===================
+const sidebarSlice = createSlice({
+  name: "sidebar",
+  initialState: {
+    selectedKey: "1", // Default selected key
+  },
+  reducers: {
+    setSelectedSidebarKey: (state, action) => {
+      state.selectedKey = action.payload;
+    },
+  },
+});
+
+export const { setSelectedSidebarKey } = sidebarSlice.actions;
+
+// =================== Persist Configuration ===================
+const authPersistConfig = {
+  key: "auth",
   storage,
 };
 
-// Apply persistence to the auth reducer
-const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
+const sidebarPersistConfig = {
+  key: "sidebar",
+  storage,
+};
 
-// Configure the store with the persisted reducer
+// Persisted reducers
+const persistedAuthReducer = persistReducer(authPersistConfig, authSlice.reducer);
+const persistedSidebarReducer = persistReducer(sidebarPersistConfig, sidebarSlice.reducer);
+
+// =================== Store Configuration ===================
 const store = configureStore({
   reducer: {
-    auth: persistedAuthReducer, // Use the persisted reducer
+    auth: persistedAuthReducer,       // Persisted auth state
+    sidebar: persistedSidebarReducer, // Persisted sidebar state
   },
 });
 

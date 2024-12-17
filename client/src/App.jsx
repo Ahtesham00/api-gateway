@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import TwoStepAuth from "./pages/TwoStepAuth";
 import KnowledgeBasePanel from "./pages/KnowledgeBasePanel";
+import ChatbotConfiguration from "./pages/ChatbotConfiguration";
 import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
 
 const App = () => {
@@ -55,6 +56,16 @@ const App = () => {
           <PrivateRoute>
             <MainLayout hideSidebar={false}>
               <KnowledgeBasePanel />
+            </MainLayout>
+          </PrivateRoute>
+        }
+      />
+       <Route
+        path="/chatbot"
+        element={
+          <PrivateRoute>
+            <MainLayout hideSidebar={false}>
+              <ChatbotConfiguration />
             </MainLayout>
           </PrivateRoute>
         }

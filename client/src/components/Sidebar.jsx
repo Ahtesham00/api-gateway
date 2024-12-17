@@ -1,7 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { clearAuth } from "../store"; // Import the clearAuth action
+import { clearAuth, setSelectedSidebarKey } from "../store"; // Import the clearAuth action
 import {
   Layout,
   Menu,
@@ -34,6 +34,11 @@ const { Text } = Typography;
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const selectedKey = useSelector((state) => state.sidebar.selectedKey);
+
+  const handleMenuClick = ({ key }) => {
+    dispatch(setSelectedSidebarKey(key));
+  };
 
   const handleLogout = () => {
     console.log("in lgout function");
@@ -83,7 +88,7 @@ const Sidebar = () => {
           paddingRight: "20px",
         }}
       >
-      {/* <VStack
+        {/* <VStack
         borderRight="1px solid #C0D2E3"
         paddingRight="20px"
         justifyContent="space-between"
@@ -103,18 +108,19 @@ const Sidebar = () => {
 
         <Space
           direction="vertical"
-          size="large" 
+          size="large"
           style={{
             height: "81vh",
             justifyContent: "space-between",
           }}
         >
-        {/* <VStack> */}
+          {/* <VStack> */}
           {/* Navigation Menu Section */}
           <div className="menu-section">
             <Menu
               mode="vertical"
-              defaultSelectedKeys={["1"]}
+              selectedKeys={[selectedKey]} // Set the selected key from Redux
+              onClick={handleMenuClick}
               className="sidebar-menu"
               style={{
                 background: "transparent",
@@ -135,7 +141,7 @@ const Sidebar = () => {
                 <Link to="/knowledge-base">Knowledge Base</Link>
               </Menu.Item>
               <Menu.Item key="3" icon={<StarOutlined />}>
-                <Link to="/popular-courses">Chatbot</Link>
+                <Link to="/chatbot">Chatbot</Link>
               </Menu.Item>
               <Menu.Item key="4" icon={<CalendarOutlined />}>
                 <Link to="/schedule">Resource</Link>
@@ -182,10 +188,9 @@ const Sidebar = () => {
               </Menu.Item>
             </Menu>
           </div>
-        {/* </VStack> */}
-
+          {/* </VStack> */}
         </Space>
-      {/* </VStack> */}
+        {/* </VStack> */}
       </Space>
     </Sider>
   );
