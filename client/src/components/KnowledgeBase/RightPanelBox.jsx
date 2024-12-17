@@ -14,7 +14,7 @@ const RightPanelBox = ({ folder }) => {
   }
 
   return (
-    <Card title={folder.name} style={{ height: "100%" }}>
+    <Card title={folder.name} style={{ height: "100%", backgroundColor: "transparent"}}>
       <Space direction="vertical" size="large" style={{ width: "100%" }}>
         <Text strong>Size: {folder.size}</Text>
         <Text strong>Modified: {folder.modified}</Text>

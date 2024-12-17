@@ -142,7 +142,7 @@ const FolderBreadcrumb = ({
             icon={<PlusOutlined />}
             onClick={() => setIsModalVisible(true)}
           >
-            New Folder
+            Add New
           </Button>
         )}
       </div>
@@ -169,7 +169,7 @@ const FolderBreadcrumb = ({
                 icon={<PlusOutlined />}
                 onClick={() => setIsModalVisible(true)}
               >
-                New Folder
+                Add New
               </Button>
             </div>
           }

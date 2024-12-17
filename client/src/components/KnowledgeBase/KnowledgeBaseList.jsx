@@ -31,7 +31,15 @@ const KnowledgeBaseList = () => {
   };
 
   return (
-    <Card style={{ minHeight: "400px" }}>
+    <Card
+      style={{
+        minHeight: "400px",
+        // backgroundColor: "transparent", // Makes the Card background transparent
+        // border: "none ", // Removes any border for the Card
+        // boxShadow: "none",
+      }}
+      
+    >
       {currentPath === "knowledgeBase" && (
         <KnowledgeBaseBreadcrumb
           onNavigateToKnowledgeBase={handleNavigateToKnowledgeBase}

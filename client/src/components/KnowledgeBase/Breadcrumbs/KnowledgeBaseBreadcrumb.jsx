@@ -137,7 +137,7 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
             icon={<PlusOutlined />}
             onClick={() => setIsModalVisible(true)}
           >
-            New Knowledge Base
+            Add New
           </Button>
         )}
       </div>
@@ -163,7 +163,7 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
                 icon={<PlusOutlined />}
                 onClick={() => setIsModalVisible(true)}
               >
-                New Knowledge Base
+                Add New
               </Button>
             </div>
           }

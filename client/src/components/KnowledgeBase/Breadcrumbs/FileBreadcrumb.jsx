@@ -181,7 +181,7 @@ const FileBreadcrumb = ({ knowledgeBaseName, folderName, onBack }) => {
           icon={<PlusOutlined />}
           onClick={() => setIsUploadVisible(true)}
         >
-          Upload File
+          Add New
         </Button>
       </div>
 
@@ -189,7 +189,20 @@ const FileBreadcrumb = ({ knowledgeBaseName, folderName, onBack }) => {
       {loading ? (
         <Spin tip="Loading Files..." />
       ) : files.length === 0 ? (
-        <Empty description="No files found" />
+        <Empty
+          description={
+            <div>
+              <p>No files found</p>
+              <Button
+                type="primary"
+                icon={<PlusOutlined />}
+                onClick={() => setIsUploadVisible(true)}
+              >
+                Add New
+              </Button>
+            </div>
+          }
+        />
       ) : (
         <>
           {/* Column Headers */}
