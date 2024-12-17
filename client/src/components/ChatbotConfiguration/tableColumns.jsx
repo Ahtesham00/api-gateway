@@ -1,43 +1,39 @@
 import React from "react";
-import { Space, Tag } from "antd";
+import { Space, Tag, Tooltip, Dropdown, Menu } from "antd";
 import {
-  FilePdfOutlined,
-  FileTextOutlined,
-  DownloadOutlined,
+  RobotOutlined, // Chatbot icon
+  EditOutlined,
+  DeleteOutlined,
   EllipsisOutlined,
 } from "@ant-design/icons";
 
 export const columns = [
   {
-    title: "Contractor Name",
-    dataIndex: "icon",
-    key: "icon",
-    render: (icon, record) => (
+    title: "Chatbot Name",
+    dataIndex: "name",
+    key: "name",
+    render: (text) => (
       <Space>
-        {icon}
+        <RobotOutlined style={{ color: "#1890FF", fontSize: 20 }} /> {/* Chatbot icon */}
         <div>
-          <div style={{ fontWeight: "bold" }}>{record.name}</div>
+          <div style={{ fontWeight: "bold" }}>{text}</div>
           <div style={{ color: "#b3b3b3", fontSize: "12px" }}>
-            Uploaded 5th Feb, 2023
+            Created on: 5th Feb, 2023
           </div>
         </div>
       </Space>
     ),
   },
   {
-    title: "Type",
-    dataIndex: "type",
-    key: "type",
+    title: "Created By",
+    dataIndex: "createdBy",
+    key: "createdBy",
+    render: (text) => <div>{text}</div>,
   },
   {
-    title: "Contractor Name",
-    dataIndex: "contractor",
-    key: "contractor",
-  },
-  {
-    title: "SSN/TIN",
-    dataIndex: "ssn",
-    key: "ssn",
+    title: "Creation Date",
+    dataIndex: "creationDate",
+    key: "creationDate",
   },
   {
     title: "Status",
@@ -50,11 +46,28 @@ export const columns = [
   {
     title: "Actions",
     key: "actions",
-    render: () => (
-      <Space size="middle">
-        <DownloadOutlined style={{ fontSize: "16px", cursor: "pointer" }} />
-        <EllipsisOutlined style={{ fontSize: "16px", cursor: "pointer" }} />
-      </Space>
-    ),
+    render: () => {
+      const menu = (
+        <Menu>
+          <Menu.Item key="delete" style={{ color: "red" }}>
+            <DeleteOutlined /> Delete
+          </Menu.Item>
+        </Menu>
+      );
+
+      return (
+        <Space size="middle">
+          <Tooltip title="Edit">
+            <EditOutlined style={{ fontSize: "16px", cursor: "pointer" }} />
+          </Tooltip>
+          <Dropdown overlay={menu} trigger={["click"]}>
+            <EllipsisOutlined
+              style={{ fontSize: "16px", cursor: "pointer" }}
+              onClick={(e) => e.preventDefault()}
+            />
+          </Dropdown>
+        </Space>
+      );
+    },
   },
 ];
