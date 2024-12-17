@@ -67,6 +67,7 @@ const FolderBreadcrumb = ({
     }
 
     try {
+      setLoading(true);
       const response = await createFolder(knowledgeBaseName, newFolderName);
       if (response.success) {
         message.success(response.message);
@@ -79,13 +80,15 @@ const FolderBreadcrumb = ({
     } catch (error) {
       console.error("Error creating folder:", error);
       message.error("Error creating folder");
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
   // Handle folder deletion
   const handleDeleteFolder = async () => {
     try {
-      setLoading(true); 
+      setLoading(true);
       const response = await deleteFolder(knowledgeBaseName, folderToDelete);
       if (response.success) {
         message.success(response.message);
@@ -97,10 +100,9 @@ const FolderBreadcrumb = ({
     } catch (error) {
       console.error("Error deleting folder:", error);
       message.error("Error deleting folder");
+    } finally {
+      setLoading(false); // Stop loading
     }
-  finally {
-    setLoading(false); // Stop loading
-  }
   };
 
   // Dropdown menu for folder options
@@ -154,15 +156,15 @@ const FolderBreadcrumb = ({
       {/* Loading or Folder List */}
       {loading ? (
         <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      height: "100%", // Full height of the parent container
-    }}
-  >
-    <Spin tip="Loading Folders..." />
-  </div>
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%", // Full height of the parent container
+          }}
+        >
+          <Spin tip="Loading Folders..." />
+        </div>
       ) : folders.length === 0 ? (
         <Empty
           description={
@@ -237,7 +239,7 @@ const FolderBreadcrumb = ({
         visible={isModalVisible}
         onOk={handleCreateFolder}
         onCancel={() => setIsModalVisible(false)}
-        confirmLoading={loading} 
+        confirmLoading={loading}
       >
         <Input
           placeholder="Enter folder name"
@@ -254,7 +256,7 @@ const FolderBreadcrumb = ({
         onCancel={() => setDeleteModalVisible(false)}
         okText="Delete"
         cancelText="Cancel"
-        confirmLoading={loading} 
+        confirmLoading={loading}
       >
         <p>Are you sure you want to delete the folder "{folderToDelete}"?</p>
       </Modal>

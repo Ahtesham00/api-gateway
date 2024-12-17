@@ -63,6 +63,7 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
     }
 
     try {
+      setLoading(true); // Start loading
       const data = await createKnowledgeBase(newKnowledgeBaseName);
       if (data.success) {
         message.success(data.message);
@@ -75,6 +76,8 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
     } catch (error) {
       console.error("Error:", error);
       message.error("Error creating knowledge base");
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
