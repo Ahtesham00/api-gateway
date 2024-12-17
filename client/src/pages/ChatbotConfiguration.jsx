@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Table, Tabs, Input, Modal, Empty, Space } from "antd";
+import { Table, Tabs, Input, Modal, Empty, Space, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import HeaderSection from "../components/ChatbotConfiguration/HeaderSection";
-import { columns } from "../components/ChatbotConfiguration/tableColumns.jsx";
+import { getColumns } from "../components/ChatbotConfiguration/tableColumns.jsx";
 import { tableData } from "../components/ChatbotConfiguration/mockData.jsx";
+import { useNavigate } from "react-router-dom";
 import "../styles/ChatbotManager.css";
 
 const { Search } = Input;
@@ -13,6 +14,8 @@ const ComplianceDocuments = () => {
   const [data, setData] = useState(tableData);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newChatbotName, setNewChatbotName] = useState("");
+
+  const navigate = useNavigate(); // Use navigate here
 
   const showModal = () => setIsModalVisible(true);
   const handleCancel = () => setIsModalVisible(false);
@@ -24,11 +27,9 @@ const ComplianceDocuments = () => {
         {
           key: Date.now(),
           name: newChatbotName,
-          type: "Chatbot",
-          contractor: "--",
-          ssn: "--",
+          createdBy: "New User",
+          creationDate: new Date().toLocaleDateString(),
           status: "Inactive",
-          icon: <PlusOutlined style={{ color: "#1890FF", fontSize: 20 }} />,
         },
       ]);
       setIsModalVisible(false);
@@ -96,8 +97,8 @@ const ComplianceDocuments = () => {
           </Space>
           <Table
             className="custom-table"
-            columns={columns}
-            dataSource={data}
+            columns={getColumns(navigate)} // Pass navigate to getColumns
+            dataSource={data || []}
             pagination={{
               position: ["bottomCenter"],
               pageSize: 4,

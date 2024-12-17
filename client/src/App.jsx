@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import TwoStepAuth from "./pages/TwoStepAuth";
 import KnowledgeBasePanel from "./pages/KnowledgeBasePanel";
 import ChatbotConfiguration from "./pages/ChatbotConfiguration";
+import Configurations from "./pages/Configurations";
 import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
 
 const App = () => {
@@ -66,6 +67,16 @@ const App = () => {
           <PrivateRoute>
             <MainLayout hideSidebar={false}>
               <ChatbotConfiguration />
+            </MainLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/configurations"
+        element={
+          <PrivateRoute>
+            <MainLayout hideSidebar={false}>
+              <Configurations />
             </MainLayout>
           </PrivateRoute>
         }
