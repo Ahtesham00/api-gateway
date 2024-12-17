@@ -81,6 +81,7 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
   // Delete knowledge base
   const handleDeleteKnowledgeBase = async () => {
     try {
+      setLoading(true); // Start loading
       const data = await deleteKnowledgeBase(selectedKnowledgeBase);
       if (data.success) {
         message.success(data.message);
@@ -92,6 +93,8 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
     } catch (error) {
       console.error("Error:", error);
       message.error("Error deleting knowledge base");
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -236,6 +239,7 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
         visible={isModalVisible}
         onOk={handleCreateKnowledgeBase}
         onCancel={() => setIsModalVisible(false)}
+        confirmLoading={loading} // Add spinner to OK button
       >
         <Input
           placeholder="Enter knowledge base name"
@@ -249,6 +253,7 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
         visible={isDeleteModalVisible}
         onOk={handleDeleteKnowledgeBase}
         onCancel={() => setIsDeleteModalVisible(false)}
+        confirmLoading={loading} // Add spinner to OK button
       >
         <p>Are you sure you want to delete "{selectedKnowledgeBase}"?</p>
       </Modal>

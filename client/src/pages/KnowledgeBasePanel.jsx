@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import QuickAccessBox from "../components/KnowledgeBase/QuickAccessBox";
 import KnowledgeBaseList from "../components/KnowledgeBase/KnowledgeBaseList";
 import RightPanelBox from "../components/KnowledgeBase/RightPanelBox";
+import HeaderSection from "../components/KnowledgeBase/HeaderSection";
 
 const KnowledgeBasePanel = () => {
   const [selectedFolder, setSelectedFolder] = useState(null);

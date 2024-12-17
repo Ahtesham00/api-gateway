@@ -85,6 +85,7 @@ const FolderBreadcrumb = ({
   // Handle folder deletion
   const handleDeleteFolder = async () => {
     try {
+      setLoading(true); 
       const response = await deleteFolder(knowledgeBaseName, folderToDelete);
       if (response.success) {
         message.success(response.message);
@@ -97,6 +98,9 @@ const FolderBreadcrumb = ({
       console.error("Error deleting folder:", error);
       message.error("Error deleting folder");
     }
+  finally {
+    setLoading(false); // Stop loading
+  }
   };
 
   // Dropdown menu for folder options
@@ -233,6 +237,7 @@ const FolderBreadcrumb = ({
         visible={isModalVisible}
         onOk={handleCreateFolder}
         onCancel={() => setIsModalVisible(false)}
+        confirmLoading={loading} 
       >
         <Input
           placeholder="Enter folder name"
@@ -249,6 +254,7 @@ const FolderBreadcrumb = ({
         onCancel={() => setDeleteModalVisible(false)}
         okText="Delete"
         cancelText="Cancel"
+        confirmLoading={loading} 
       >
         <p>Are you sure you want to delete the folder "{folderToDelete}"?</p>
       </Modal>
