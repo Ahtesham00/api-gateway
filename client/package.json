@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.2",
+    "@chakra-ui/icons": "^2.0.19",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@reduxjs/toolkit": "^2.4.0",
     "antd": "^5.22.3",
     "axios": "^1.7.9",

@@ -2,7 +2,17 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { clearAuth } from "../store"; // Import the clearAuth action
-import { Layout, Menu, Typography, Avatar, Space, Divider, Modal  } from "antd";
+import {
+  Layout,
+  Menu,
+  Typography,
+  Avatar,
+  Space,
+  Divider,
+  Modal,
+  Dropdown,
+} from "antd";
+import { VStack } from "@chakra-ui/react";
 import {
   HomeOutlined,
   AppstoreOutlined,
@@ -11,6 +21,8 @@ import {
   BookOutlined,
   BarChartOutlined,
   LogoutOutlined,
+  SettingOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import "../styles/Sidebar.css";
@@ -43,17 +55,39 @@ const Sidebar = () => {
       },
     });
   };
+
+  // Avatar Dropdown Menu
+  const avatarMenu = (
+    <Menu>
+      <Menu.Item key="user-management" icon={<UserOutlined />}>
+        <Link to="/user-management">User Management</Link>
+      </Menu.Item>
+      <Menu.Item key="settings" icon={<SettingOutlined />}>
+        <Link to="/settings">Settings</Link>
+      </Menu.Item>
+      {/* <Menu.Divider />
+      <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={handleLogout}>
+        Logout
+      </Menu.Item> */}
+    </Menu>
+  );
+
   return (
     <Sider className="custom-sidebar" width={260}>
       <Space
         direction="vertical"
-        size="large" /* Controls spacing between items */
+        size="large"
         style={{
           borderRight: "1px solid #C0D2E3",
           justifyContent: "space-between",
           paddingRight: "20px",
         }}
       >
+      {/* <VStack
+        borderRight="1px solid #C0D2E3"
+        paddingRight="20px"
+        justifyContent="space-between"
+      > */}
         {/* Logo Section */}
         <div
           className="sidebar-logo"
@@ -69,12 +103,13 @@ const Sidebar = () => {
 
         <Space
           direction="vertical"
-          size="large" /* Controls spacing between items */
+          size="large" 
           style={{
             height: "81vh",
             justifyContent: "space-between",
           }}
         >
+        {/* <VStack> */}
           {/* Navigation Menu Section */}
           <div className="menu-section">
             <Menu
@@ -116,15 +151,17 @@ const Sidebar = () => {
 
           {/* Bottom Section */}
           <div className="sidebar-bottom">
-            <div className="sidebar-user">
-              <Avatar
-                size={44}
-                src="https://xsgames.co/randomusers/avatar.php?g=pixel"
-              />
-              <div>
-                <Text className="username">Volter Anderson</Text>
+            <Dropdown overlay={avatarMenu} trigger={["click"]}>
+              <div className="sidebar-user" style={{ cursor: "pointer" }}>
+                <Avatar
+                  size={44}
+                  src="https://xsgames.co/randomusers/avatar.php?g=pixel"
+                />
+                <div>
+                  <Text className="username">Volter Anderson</Text>
+                </div>
               </div>
-            </div>
+            </Dropdown>
             {/* Divider */}
             <Divider style={{ margin: "0px 0", borderColor: "#C0D2E3" }} />
             <Menu
@@ -145,7 +182,10 @@ const Sidebar = () => {
               </Menu.Item>
             </Menu>
           </div>
+        {/* </VStack> */}
+
         </Space>
+      {/* </VStack> */}
       </Space>
     </Sider>
   );
