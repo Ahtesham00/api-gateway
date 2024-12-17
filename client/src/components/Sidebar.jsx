@@ -100,16 +100,16 @@ const Sidebar = () => {
                 <Link to="/knowledge-base">Knowledge Base</Link>
               </Menu.Item>
               <Menu.Item key="3" icon={<StarOutlined />}>
-                <Link to="/popular-courses">Popular Courses</Link>
+                <Link to="/popular-courses">Chatbot</Link>
               </Menu.Item>
               <Menu.Item key="4" icon={<CalendarOutlined />}>
-                <Link to="/schedule">Schedule</Link>
+                <Link to="/schedule">Resource</Link>
               </Menu.Item>
               <Menu.Item key="5" icon={<BookOutlined />}>
-                <Link to="/my-courses">My Courses</Link>
+                <Link to="/my-courses">Avatar</Link>
               </Menu.Item>
               <Menu.Item key="6" icon={<BarChartOutlined />}>
-                <Link to="/statistics">Statistics</Link>
+                <Link to="/statistics">Prospects</Link>
               </Menu.Item>
             </Menu>
           </div>

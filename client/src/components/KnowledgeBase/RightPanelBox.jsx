@@ -7,14 +7,33 @@ const { Title, Text } = Typography;
 const RightPanelBox = ({ folder }) => {
   if (!folder) {
     return (
-      <Card style={{ height: "100%", textAlign: "center" }}>
+      <Card
+        style={{
+          height: "100%",
+          textAlign: "center",
+          background: "rgba(255, 255, 255, 0.2)", // Semi-transparent white
+        borderRadius: "12px", // Optional: rounded corners
+        backdropFilter: "blur(10px)", // Apply the blur effect
+        WebkitBackdropFilter: "blur(10px)", // For Safari compatibility
+        border: "1px solid rgba(255, 255, 255, 0.3)", // Subtle border for glass effect
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Optional: slight shadow
+        }}
+      >
         <Empty description="Select a folder to view details" />
       </Card>
     );
   }
 
   return (
-    <Card title={folder.name} style={{ height: "100%", backgroundColor: "transparent"}}>
+    <Card
+      title={folder.name}
+      style={{
+        height: "100%",
+        background: "rgba(255, 255, 255, 0.5)", // White background with reduced opacity
+        border: "none", // Optional: remove border
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Optional: slight shadow
+      }}
+    >
       <Space direction="vertical" size="large" style={{ width: "100%" }}>
         <Text strong>Size: {folder.size}</Text>
         <Text strong>Modified: {folder.modified}</Text>

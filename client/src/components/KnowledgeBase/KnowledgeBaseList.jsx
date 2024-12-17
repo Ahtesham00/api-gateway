@@ -34,11 +34,13 @@ const KnowledgeBaseList = () => {
     <Card
       style={{
         minHeight: "400px",
-        // backgroundColor: "transparent", // Makes the Card background transparent
-        // border: "none ", // Removes any border for the Card
-        // boxShadow: "none",
+        background: "rgba(255, 255, 255, 0.2)", // Semi-transparent white
+        borderRadius: "12px", // Optional: rounded corners
+        backdropFilter: "blur(10px)", // Apply the blur effect
+        WebkitBackdropFilter: "blur(10px)", // For Safari compatibility
+        border: "1px solid rgba(255, 255, 255, 0.3)", // Subtle border for glass effect
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Optional: slight shadow
       }}
-      
     >
       {currentPath === "knowledgeBase" && (
         <KnowledgeBaseBreadcrumb
