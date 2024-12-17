@@ -24,7 +24,7 @@ apiClient.interceptors.response.use(
 
       if (refresh_token) {
         try {
-          const response = await axios.post("/v1/auth/refresh", {
+          const response = await axios.post("/v1/auth/refresh-token", {
             refresh_token,
           });
 
@@ -37,11 +37,11 @@ apiClient.interceptors.response.use(
           return apiClient.request(error.config);
         } catch (refreshError) {
           store.dispatch(clearAuth()); // Clear auth on refresh failure
-          window.location.href = "/login"; // Redirect to login
+          window.location.href = "/"; // Redirect to login
         }
       } else {
         store.dispatch(clearAuth()); // Clear auth if no refresh token
-        window.location.href = "/login"; // Redirect to login
+        window.location.href = "/"; // Redirect to login
       }
     }
     return Promise.reject(error);

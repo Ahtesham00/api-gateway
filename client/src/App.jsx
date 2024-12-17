@@ -50,7 +50,7 @@ const App = () => {
         }
       />
       <Route
-        path="/knowledge-based"
+        path="/knowledge-base"
         element={
           <PrivateRoute>
             <MainLayout hideSidebar={false}>

@@ -94,10 +94,10 @@ const Sidebar = () => {
                   alignItems: "left",
                 }}
               >
-                <Link to="/">Home</Link>
+                <Link to="/home">Home</Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<AppstoreOutlined />}>
-                <Link to="/knowledge-based">Knowledge Based</Link>
+                <Link to="/knowledge-base">Knowledge Base</Link>
               </Menu.Item>
               <Menu.Item key="3" icon={<StarOutlined />}>
                 <Link to="/popular-courses">Popular Courses</Link>
