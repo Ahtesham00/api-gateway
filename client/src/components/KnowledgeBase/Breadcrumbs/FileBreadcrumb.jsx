@@ -252,23 +252,73 @@ const FileBreadcrumb = ({ knowledgeBaseName, folderName, onBack }) => {
 
       {/* Upload File Modal */}
       <Modal
-        title="Upload File"
+        title={
+          <div
+            style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            Upload File
+          </div>
+        }
         visible={isUploadVisible}
         onOk={handleUploadFile}
         onCancel={() => setIsUploadVisible(false)}
         okText="Upload"
+        cancelText="Cancel"
         confirmLoading={uploading}
+        centered
       >
-        <Upload
-          beforeUpload={(file) => {
-            setSelectedFile(file);
-            return false; // Prevent automatic upload
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            border: "2px dashed #d9d9d9",
+            borderRadius: "8px",
+            padding: "30px",
+            backgroundColor: "#fafafa",
+            textAlign: "center",
           }}
-          maxCount={1}
-          fileList={selectedFile ? [selectedFile] : []}
         >
-          <Button>Select File</Button>
-        </Upload>
+          <Upload.Dragger
+            beforeUpload={(file) => {
+              setSelectedFile(file);
+              return false; // Prevent automatic upload
+            }}
+            fileList={selectedFile ? [selectedFile] : []}
+            maxCount={1}
+            showUploadList={false}
+          >
+            <div>
+              <PlusOutlined style={{ fontSize: "48px", color: "#5C62FF" }} />
+              <p style={{ margin: "10px 0", fontSize: "16px", color: "#333" }}>
+                Drag and drop a file here or click to upload
+              </p>
+              <Button type="primary">Select File</Button>
+            </div>
+          </Upload.Dragger>
+        </div>
+
+        {/* Display selected file */}
+        {selectedFile && (
+          <div
+            style={{
+              marginTop: "20px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "14px",
+              color: "#595959",
+            }}
+          >
+            <FileOutlined style={{ marginRight: "8px", color: "#5C62FF" }} />
+            <span>{selectedFile.name}</span>
+          </div>
+        )}
       </Modal>
     </>
   );
