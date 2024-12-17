@@ -161,7 +161,7 @@ const FileBreadcrumb = ({ knowledgeBaseName, folderName, onBack }) => {
       >
         <Breadcrumb
           separator=">"
-          style={{ fontSize: "16px", fontWeight: "500" }}
+          style={{ fontSize: "16px", fontWeight: "500", cursor: "pointer" }}
         >
           <Breadcrumb.Item
             onClick={onBack}

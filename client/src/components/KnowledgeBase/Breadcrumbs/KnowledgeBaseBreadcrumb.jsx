@@ -28,6 +28,7 @@ import {
 const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
   const [knowledgeBases, setKnowledgeBases] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modalLoading, setModalLoading] = useState(false); // For modal OK buttons
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [newKnowledgeBaseName, setNewKnowledgeBaseName] = useState("");
@@ -63,7 +64,7 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
     }
 
     try {
-      setLoading(true); // Start loading
+      setModalLoading(true); // Start loading
       const data = await createKnowledgeBase(newKnowledgeBaseName);
       if (data.success) {
         message.success(data.message);
@@ -77,14 +78,14 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
       console.error("Error:", error);
       message.error("Error creating knowledge base");
     } finally {
-      setLoading(false); // Stop loading
+      setModalLoading(false); // Stop loading
     }
   };
 
   // Delete knowledge base
   const handleDeleteKnowledgeBase = async () => {
     try {
-      setLoading(true); // Start loading
+      setModalLoading(true); // Start loading
       const data = await deleteKnowledgeBase(selectedKnowledgeBase);
       if (data.success) {
         message.success(data.message);
@@ -97,7 +98,7 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
       console.error("Error:", error);
       message.error("Error deleting knowledge base");
     } finally {
-      setLoading(false); // Stop loading
+      setModalLoading(false); // Stop loading
     }
   };
 
@@ -131,10 +132,16 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
       >
         <Breadcrumb
           separator=">"
-          style={{ fontSize: "16px", fontWeight: "500", color: "#333" }}
+          style={{
+            fontSize: "16px",
+            fontWeight: "500",
+            color: "#333",
+            cursor: "pointer",
+          }}
         >
           <Breadcrumb.Item>
-            <HomeOutlined style={{ marginRight: "5px" }} /> Knowledge Bases
+            <HomeOutlined style={{ marginRight: "5px"}} />{" "}
+            Knowledge Bases
           </Breadcrumb.Item>
         </Breadcrumb>
         {knowledgeBases.length !== 0 && (
@@ -242,7 +249,7 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
         visible={isModalVisible}
         onOk={handleCreateKnowledgeBase}
         onCancel={() => setIsModalVisible(false)}
-        confirmLoading={loading} // Add spinner to OK button
+        confirmLoading={modalLoading} // Add spinner to OK button
       >
         <Input
           placeholder="Enter knowledge base name"
@@ -256,7 +263,7 @@ const KnowledgeBaseBreadcrumb = ({ onNavigateToKnowledgeBase }) => {
         visible={isDeleteModalVisible}
         onOk={handleDeleteKnowledgeBase}
         onCancel={() => setIsDeleteModalVisible(false)}
-        confirmLoading={loading} // Add spinner to OK button
+        confirmLoading={modalLoading} // Add spinner to OK button
       >
         <p>Are you sure you want to delete "{selectedKnowledgeBase}"?</p>
       </Modal>
