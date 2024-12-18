@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Drawer, Input, Button, FloatButton, Space } from "antd";
-import { MessageOutlined, SendOutlined, CloseOutlined } from "@ant-design/icons";
+import {
+  MessageOutlined,
+  SendOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import "../../../styles/ChatbotAdmin.css";
 
 const { TextArea } = Input;
@@ -16,7 +20,6 @@ const Chatbot = () => {
     if (input.trim()) {
       setMessages([...messages, { text: input, sender: "user" }]);
       setInput("");
-      // Add API call logic for chatbot response here.
     }
   };
 
@@ -29,7 +32,7 @@ const Chatbot = () => {
         style={{
           right: 30, // Padding from right edge
           bottom: 30, // Padding from bottom edge
-          zIndex: 1000, // Ensures visibility over other components
+          zIndex: 1000, // Visibility over other components
         }}
         onClick={toggleChat}
       />
@@ -47,10 +50,24 @@ const Chatbot = () => {
         onClose={toggleChat}
         open={isOpen}
         closable={false}
-        style={{ borderRadius: "12px 0 0 12px", padding: "10px", margin: "5px", marginLeft: "0px" }}
+        bodyStyle={{
+          padding: "10px", // Control the spacing inside the Drawer
+          margin: "10px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          height: "auto",
+        }}
       >
         {/* Chat Messages */}
-        <div className="chatbot-messages">
+        <div
+          className="chatbot-messages"
+          style={{
+            flex: 1,
+            overflowY: "auto",
+            paddingBottom: "20px", // Add spacing at the bottom
+          }}
+        >
           {messages.map((msg, idx) => (
             <div
               key={idx}
@@ -64,7 +81,7 @@ const Chatbot = () => {
         </div>
 
         {/* Chat Input */}
-        <Space.Compact style={{ width: "100%", marginTop: "12px" }}>
+        <Space.Compact style={{ width: "100%", marginTop: "10px" }}>
           <TextArea
             rows={1}
             value={input}
@@ -72,6 +89,7 @@ const Chatbot = () => {
             placeholder="Type a message..."
             style={{
               borderRadius: "8px 0 0 8px",
+              border: "1px solid #D9D9D9",
             }}
           />
           <Button
