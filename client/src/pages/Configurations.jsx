@@ -9,10 +9,14 @@ import PersonaSection from "../components/ChatbotAdminSide/Configurations/Person
 import ResponseLanguageSection from "../components/ChatbotAdminSide/Configurations/ResponseLanguageSection";
 import { getKnowledgeBases, getFolders } from "../api/knowledgeBaseApi";
 import { saveConfigurations } from "../api/chatbotConfigurationApi";
+import Chatbot from "../components/ChatbotAdminSide/Chatbot/Chatbot";
 
 const Configurations = () => {
   const location = useLocation();
-  const { chatbotName } = location.state || { chatbotName: "Unnamed Chatbot" };
+  const { chatbotId, chatbotName } = location.state || {
+    chatbotId: null,
+    chatbotName: "Unnamed Chatbot",
+  };
 
   // State for dropdowns and sliders
   const [knowledgeBases, setKnowledgeBases] = useState([]);
@@ -64,13 +68,17 @@ const Configurations = () => {
   // Handle Save Button Click
   const handleSave = async () => {
     const payload = {
-      language: selectedLanguage?.value || "",
-      response_tone: responseTone,
-      knowledge_base_name: selectedKnowledgeBase,
-      folders: [selectedFolder],
-      llm_model: languageModel,
-      temperature,
-      max_tokens: maxTokens,
+      chatbot_id: chatbotId,
+      chatbot_name: chatbotName,
+      settings: {
+        language: selectedLanguage?.value || "",
+        response_tone: responseTone,
+        knowledge_base_name: selectedKnowledgeBase,
+        folders: [selectedFolder],
+        llm_model: languageModel,
+        temperature,
+        max_tokens: maxTokens,
+      },
     };
     console.log("payload", payload);
     try {
@@ -147,6 +155,8 @@ const Configurations = () => {
           <Button type="primary" onClick={handleSave}>
             Save
           </Button>
+          {/* Chatbot Component */}
+          <Chatbot />
         </div>
       </div>
     </div>
