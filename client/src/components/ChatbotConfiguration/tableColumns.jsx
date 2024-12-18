@@ -8,8 +8,8 @@ import {
 } from "@ant-design/icons";
 
 export const getColumns = (navigate) => {
-  const handleEdit = (id) => {
-    if (id) {
+  const handleEdit = (id, name) => {
+    if (id && name) {
       navigate("/configurations", { state: { chatbotId: id, chatbotName: name } });
     }
   };
@@ -66,7 +66,7 @@ export const getColumns = (navigate) => {
             <Tooltip title="Edit">
               <EditOutlined
                 style={{ fontSize: "16px", cursor: "pointer" }}
-                onClick={() => handleEdit(record?._id)}
+                onClick={() => handleEdit(record?._id, record?.name)} // Pass both ID and name
               />
             </Tooltip>
             <Dropdown overlay={menu} trigger={["click"]}>
