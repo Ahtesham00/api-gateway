@@ -19,6 +19,9 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  /* Hide scrollbar for modern browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
 }
 
 /* Header Section */
@@ -93,3 +96,19 @@
   opacity: 1; 
 }
 
+/* Transparent TextArea */
+.textarea-transparent {
+  background-color: transparent !important; /* Transparent background */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Light border for better visibility */
+  border-radius: 6px; /* Rounded corners */
+  color: #333; /* Text color */
+  font-size: 14px;
+  padding: 10px; /* Padding for better spacing */
+  outline: none; /* Remove outline on focus */
+  box-shadow: none; /* Remove box-shadow */
+  margin-top: 8px;
+}
+
+.textarea-transparent::placeholder {
+  color: rgba(0, 0, 0, 0.4); /* Adjust placeholder color */
+}

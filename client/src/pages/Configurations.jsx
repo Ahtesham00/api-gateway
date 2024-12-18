@@ -10,15 +10,14 @@ const { TextArea } = Input;
 const Configurations = () => {
   const location = useLocation();
   const {  chatbotId, chatbotName } =  location.state || { chatbotId: null, chatbotName: "Unnamed Chatbot" };
-  console.log("Chatbot id: " + chatbotId);
-  console.log("Chatbot name: " + chatbotName);
+
   return (
     <div className="configurations-container">
       <div className="configurations-content">
         {/* Header */}
         <div className="configurations-header">
           <Title level={2} className="heading">
-            Settings for: {chatbotName}
+            Settings for
           </Title>
           <Text type="secondary">
             Update settings for better features performance
@@ -120,7 +119,7 @@ const Configurations = () => {
           <Title level={5} style={{ marginBottom: "0px" }}>Persona</Title>
           <Text type="secondary">Provide a persona for your chatbot</Text>
           <Divider dashed />
-          <TextArea placeholder="Enter persona description" rows={4} className="dropdown" />
+          <TextArea placeholder="Enter persona description" rows={4} className="textarea-transparent" />
         </div>
       </div>
     </div>
