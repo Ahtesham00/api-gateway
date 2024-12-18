@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Table, Tabs, Input, Modal, Empty, Space, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import HeaderSection from "../components/ChatbotConfiguration/HeaderSection";
-import { getColumns } from "../components/ChatbotConfiguration/tableColumns.jsx";
-import { tableData } from "../components/ChatbotConfiguration/mockData.jsx";
+import HeaderSection from "../components/ChatbotAdminSide/HeaderSection";
+import { getColumns } from "../components/ChatbotAdminSide/tableColumns.jsx";
+import { tableData } from "../components/ChatbotAdminSide/mockData.jsx";
 import { useNavigate } from "react-router-dom";
 import "../styles/ChatbotManager.css";
 
