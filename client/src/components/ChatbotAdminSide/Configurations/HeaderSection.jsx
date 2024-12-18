@@ -3,10 +3,10 @@ import { Typography } from "antd";
 
 const { Title, Text } = Typography;
 
-const HeaderSection = ({ chatbotName }) => (
+const HeaderSection = () => (
   <div className="configurations-header">
     <Title level={2} className="heading">
-      Settings for {chatbotName}
+      Settings
     </Title>
     <Text type="secondary">Update settings for better features performance</Text>
   </div>
