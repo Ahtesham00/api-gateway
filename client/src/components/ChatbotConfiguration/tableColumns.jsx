@@ -10,7 +10,7 @@ import {
 export const getColumns = (navigate) => {
   const handleEdit = (id) => {
     if (id) {
-      navigate("/configurations", { state: { chatbotId: id } });
+      navigate("/configurations", { state: { chatbotId: id, chatbotName: name } });
     }
   };
 
