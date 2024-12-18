@@ -1,34 +1,45 @@
 import React from "react";
-import { Card, Slider, Row, Col, Divider } from "antd";
+import { Card, Slider, Row, Col } from "antd";
 
-const ModelSensitivitySection = () => (
-  <div className="model-sensitivity">
-    <div className="configurations-header">
-      <h5 style={{ marginBottom: "0px", marginTop: "20px" }}>Model Configuration</h5>
-      <p>Adjust sensitivity settings</p>
+const ModelSensitivitySection = ({ temperature, setTemperature, maxTokens, setMaxTokens }) => {
+  return (
+    <div className="model-sensitivity">
+      <Row gutter={[16, 16]}>
+        <Col span={12}>
+          <Card title="Temperature" className="slider-card">
+            <Slider
+              min={0.0}
+              max={2.0}
+              step={0.1}
+              value={temperature}
+              onChange={(value) => setTemperature(value)}
+              tooltipVisible
+            />
+            <div className="slider-range">
+              <span>0</span>
+              <span>2.0</span>
+            </div>
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card title="Max Tokens" className="slider-card">
+            <Slider
+              min={1}
+              max={16383}
+              step={1}
+              value={maxTokens}
+              onChange={(value) => setMaxTokens(value)}
+              tooltipVisible
+            />
+            <div className="slider-range">
+              <span>1</span>
+              <span>16383</span>
+            </div>
+          </Card>
+        </Col>
+      </Row>
     </div>
-    <Divider dashed />
-    <Row gutter={[16, 16]} className="full-width-row">
-      <Col span={12} className="slider-col">
-        <Card title="Temperature" className="slider-card">
-          <Slider defaultValue={1.0} min={0.0} max={2.0} step={0.1} tooltipVisible />
-          <div className="slider-range">
-            <span>0</span>
-            <span>2.00</span>
-          </div>
-        </Card>
-      </Col>
-      <Col span={12} className="slider-col">
-        <Card title="Max Tokens" className="slider-card">
-          <Slider defaultValue={2048} min={1} max={16383} step={1} tooltipVisible />
-          <div className="slider-range">
-            <span>1</span>
-            <span>16383</span>
-          </div>
-        </Card>
-      </Col>
-    </Row>
-  </div>
-);
+  );
+};
 
 export default ModelSensitivitySection;

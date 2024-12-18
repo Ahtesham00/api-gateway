@@ -112,3 +112,11 @@
 .textarea-transparent::placeholder {
   color: rgba(0, 0, 0, 0.4); /* Adjust placeholder color */
 }
+
+.save-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  margin-top: 20px;
+}

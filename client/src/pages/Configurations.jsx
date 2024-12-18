@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Divider } from "antd";
+import { Divider, Button } from "antd";
 import "../styles/Configurations.css";
 import HeaderSection from "../components/ChatbotAdminSide/Configurations/HeaderSection";
 import ModelSensitivitySection from "../components/ChatbotAdminSide/Configurations/ModelSensitivitySection";
 import DropdownSection from "../components/ChatbotAdminSide/Configurations/DropdownSection";
 import PersonaSection from "../components/ChatbotAdminSide/Configurations/PersonaSection";
-import { getKnowledgeBases, getFolders } from "../api/knowledgebaseapi";
+import ResponseLanguageSection from "../components/ChatbotAdminSide/Configurations/ResponseLanguageSection";
+import { getKnowledgeBases, getFolders } from "../api/knowledgeBaseApi";
+import { saveConfigurations } from "../api/chatbotConfigurationApi";
 
 const Configurations = () => {
   const location = useLocation();
   const { chatbotName } = location.state || { chatbotName: "Unnamed Chatbot" };
 
+  // State for dropdowns and sliders
   const [knowledgeBases, setKnowledgeBases] = useState([]);
   const [folders, setFolders] = useState([]);
   const [selectedKnowledgeBase, setSelectedKnowledgeBase] = useState("");
+  const [selectedFolder, setSelectedFolder] = useState("");
+  const [languageModel, setLanguageModel] = useState("");
+  const [responseTone, setResponseTone] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const [temperature, setTemperature] = useState(0);
+  const [maxTokens, setMaxTokens] = useState(1);
 
   // Fetch knowledge bases on component mount
   useEffect(() => {
@@ -30,7 +39,6 @@ const Configurations = () => {
         console.error("Error fetching knowledge bases:", error.message);
       }
     };
-
     fetchKnowledgeBases();
   }, []);
 
@@ -40,16 +48,40 @@ const Configurations = () => {
     setFolders([]); // Clear previous folders
     try {
       const data = await getFolders(value);
-      console.log("Folders fetched for Knowledge Base:", data); // Log folder names
       if (data.success) {
-        const folderNames = data.data.folders.map((folder) => folder.knowledge_base_name);
+        const folderNames = data.data.folders.map(
+          (folder) => folder.folder_name
+        );
         setFolders(folderNames);
-        // console.log("Folders fetched for Knowledge Base:", folderNames); // Log folder names
       } else {
         console.error("Failed to fetch folders");
       }
     } catch (error) {
       console.error("Error fetching folders:", error.message);
+    }
+  };
+
+  // Handle Save Button Click
+  const handleSave = async () => {
+    const payload = {
+      language: selectedLanguage?.value || "",
+      response_tone: responseTone,
+      knowledge_base_name: selectedKnowledgeBase,
+      folders: [selectedFolder],
+      llm_model: languageModel,
+      temperature,
+      max_tokens: maxTokens,
+    };
+    console.log("payload", payload);
+    try {
+      const response = await saveConfigurations(payload);
+      if (response.success) {
+        console.log("Settings saved successfully:", response);
+      } else {
+        console.error("Failed to save settings:", response.message);
+      }
+    } catch (error) {
+      console.error("Error saving configurations:", error.message);
     }
   };
 
@@ -59,28 +91,35 @@ const Configurations = () => {
         {/* Header */}
         <HeaderSection chatbotName={chatbotName} />
 
-        {/* Model Sensitivity */}
         <Divider />
-        <ModelSensitivitySection />
+
+        {/* Model Sensitivity */}
+        <ModelSensitivitySection
+          temperature={temperature}
+          setTemperature={setTemperature}
+          maxTokens={maxTokens}
+          setMaxTokens={setMaxTokens}
+        />
+        <Divider />
 
         {/* Dropdown Sections */}
-        <Divider />
         <DropdownSection
           title="Language Model"
           description="Select the language model version"
           options={["GPT-3.5", "GPT-4"]}
+          onChange={setLanguageModel}
         />
 
         <DropdownSection
           title="Response Tone"
           description="Choose the tone of responses"
           options={["Formal", "Casual", "Friendly", "Professional"]}
+          onChange={setResponseTone}
         />
 
-        <DropdownSection
-          title="Response Language"
-          description="Select the preferred response language"
-          options={["English", "French", "Spanish", "German"]}
+        <ResponseLanguageSection
+          onChange={setSelectedLanguage}
+          selectedLanguage={selectedLanguage}
         />
 
         <DropdownSection
@@ -96,10 +135,19 @@ const Configurations = () => {
             selectedKnowledgeBase || "No Knowledge Base Selected"
           }`}
           options={folders}
+          mode="multiple"
+          onChange={setSelectedFolder}
         />
 
         {/* Persona Section */}
         <PersonaSection />
+
+        {/* Save Button */}
+        <div className="save-button-container">
+          <Button type="primary" onClick={handleSave}>
+            Save
+          </Button>
+        </div>
       </div>
     </div>
   );
