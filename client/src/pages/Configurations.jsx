@@ -7,9 +7,9 @@ import ModelSensitivitySection from "../components/ChatbotAdminSide/Configuratio
 import DropdownSection from "../components/ChatbotAdminSide/Configurations/DropdownSection";
 import PersonaSection from "../components/ChatbotAdminSide/Configurations/PersonaSection";
 import ResponseLanguageSection from "../components/ChatbotAdminSide/Configurations/ResponseLanguageSection";
+import ChatbotModal from "../components/ChatbotAdminSide/Chatbot/ChatbotModal";
 import { getKnowledgeBases, getFolders } from "../api/knowledgeBaseApi";
 import { saveConfigurations } from "../api/chatbotConfigurationApi";
-import Chatbot from "../components/ChatbotAdminSide/Chatbot/Chatbot";
 
 const Configurations = () => {
   const location = useLocation();
@@ -28,6 +28,7 @@ const Configurations = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [temperature, setTemperature] = useState(0);
   const [maxTokens, setMaxTokens] = useState(1);
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   // Fetch knowledge bases on component mount
   useEffect(() => {
@@ -97,7 +98,10 @@ const Configurations = () => {
     <div className="configurations-container">
       <div className="configurations-content">
         {/* Header */}
-        <HeaderSection chatbotName={chatbotName} />
+       
+          <HeaderSection chatbotName={chatbotName} setIsChatbotOpen={setIsChatbotOpen}/>
+         
+      
 
         <Divider />
 
@@ -155,9 +159,13 @@ const Configurations = () => {
           <Button type="primary" onClick={handleSave}>
             Save
           </Button>
-          {/* Chatbot Component */}
-          <Chatbot />
         </div>
+
+        {/* Chatbot Modal */}
+        <ChatbotModal
+          isOpen={isChatbotOpen}
+          onClose={() => setIsChatbotOpen(false)}
+        />
       </div>
     </div>
   );

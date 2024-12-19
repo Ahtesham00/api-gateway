@@ -13,7 +13,7 @@ const ModelSensitivitySection = ({ temperature, setTemperature, maxTokens, setMa
               step={0.1}
               value={temperature}
               onChange={(value) => setTemperature(value)}
-              tooltipVisible
+              // tooltipVisible
             />
             <div className="slider-range">
               <span>0</span>
@@ -29,7 +29,6 @@ const ModelSensitivitySection = ({ temperature, setTemperature, maxTokens, setMa
               step={1}
               value={maxTokens}
               onChange={(value) => setMaxTokens(value)}
-              tooltipVisible
             />
             <div className="slider-range">
               <span>1</span>
