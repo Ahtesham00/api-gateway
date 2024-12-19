@@ -1,6 +1,6 @@
 /* Apply Poppins globally */
 :root {
-  font-family: 'Poppins';
+  /* font-family: 'Poppins'; */
   line-height: 1.5;
   font-weight: 400;
 
@@ -15,30 +15,30 @@
 }
 
 /* Apply Poppins to the body */
-body {
-  font-family: 'Poppins'; /* Poppins font applied globally */
+/* body {
+  font-family: 'Poppins'; 
   margin: 0;
   min-height: 100vh;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
-}
+  overflow-x: hidden;
+} */
 
 /* Optional: Ensure headings, links, and buttons also inherit Poppins */
-h1, h2, h3, h4, h5, h6, a, button, input, select, textarea {
+/* h1, h2, h3, h4, h5, h6, a, button, input, select, textarea {
   font-family: 'Poppins';
-}
+} */
 
-.ant-typography {
+/* .ant-typography {
   font-family: 'Poppins';
-}
+} */
 
-.ant-input,
+/* .ant-input,
 .ant-input-password {
   font-family: 'Poppins';
-}
+} */
 
-.ant-btn {
+/* .ant-btn {
   font-family: 'Poppins';
-}
+} */
 
 
 a {

@@ -9,7 +9,7 @@ import "../styles/ChatbotManager.css";
 
 const { Search } = Input;
 
-const ComplianceDocuments = () => {
+const ChatbotConfiguration = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [data, setData] = useState(tableData);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -128,4 +128,4 @@ const ComplianceDocuments = () => {
   );
 };
 
-export default ComplianceDocuments;
+export default ChatbotConfiguration;

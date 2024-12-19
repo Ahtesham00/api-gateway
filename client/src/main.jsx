@@ -7,6 +7,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/theme-utils";
 import "antd/dist/reset.css";
 import "./index.css";
+import "../src/styles/global.css";
 import App from "./App.jsx";
 import store, { persistor } from "./store";
 
