@@ -10,6 +10,7 @@ class Config:
     PRODUCT_SERVICE_URL = os.getenv("PRODUCT_SERVICE_URL", "http://localhost:5006")
     ORGANIZATION_SERVICE_URL = os.getenv("ORGANIZATION_SERVICE_URL", "http://localhost:5005")
     CHATBOT_DATA_SERVICE_URL = os.getenv("CHATBOT_DATA_SERVICE_URL", "http://localhost:5003")
+    CHATBOT_SERVICE_URL = os.getenv("CHATBOT_SERVICE_URL", "http://localhost:5002")
 
 class DevelopmentConfig(Config):
     DEBUG = True
@@ -17,6 +18,7 @@ class DevelopmentConfig(Config):
     PRODUCT_SERVICE_URL = os.getenv('PRODUCT_SERVICE_URL', 'http://127.0.0.1:5006')
     ORGANIZATION_SERVICE_URL = os.getenv('ORGANIZATION_SERVICE_URL', 'http://127.0.0.1:5005')
     CHATBOT_DATA_SERVICE_URL = os.getenv('CHATBOT_DATA_SERVICE_URL', 'http://127.0.0.1:5003')
+    CHATBOT_SERVICE_URL = os.getenv('CHATBOT_SERVICE_URL', 'http://127.0.0.1:5002')
 
 class TestingConfig(Config):
     TESTING = True
@@ -24,6 +26,7 @@ class TestingConfig(Config):
     PRODUCT_SERVICE_URL = 'http://127.0.0.1:5006'
     ORGANIZATION_SERVICE_URL = 'http://127.0.0.1:5005'
     CHATBOT_DATA_SERVICE_URL = 'http://127.0.0.1:5003'
+    CHATBOT_SERVICE_URL = 'http://127.0.0.1:5002'
 
 class ProductionConfig(Config):
     # Production-specific configuration

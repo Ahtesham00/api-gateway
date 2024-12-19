@@ -11,6 +11,7 @@ AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL", "http://127.0.0.1:5001")
 PRODUCT_SERVICE_URL = os.getenv("PRODUCT_SERVICE_URL", "http://127.0.0.1:5006")
 ORGANIZATION_SERVICE_URL = os.getenv("ORGANIZATION_SERVICE_URL", "http://127.0.0.1:5005")
 CHATBOT_DATA_SERVICE_URL = os.getenv("CHATBOT_DATA_SERVICE_URL", "http://127.0.0.1:5003")
+CHATBOT_SERVICE_URL = os.getenv("CHATBOT_SERVICE_URL", "http://127.0.0.1:5002")
 
 v1_namespace = Namespace("v1", description="Version 1 Gateway APIs")
 
@@ -152,6 +153,83 @@ class UploadFile(Resource):
     def post(self):
         try:
             return forward_request(f"{CHATBOT_DATA_SERVICE_URL}/v1/upload_area_file")
+        except Exception as e:
+            current_app.logger.error(f"Error forwarding POST request: {str(e)}")
+            return {"error": "Internal gateway error"}, 500
+
+@v1_namespace.route('/chatbot-configs', '/chatbot-configs/<path:config_path>')
+class ChatbotConfigProxy(Resource):
+    def get(self, config_path=None):
+        try:
+            endpoint = f"/v1/chatbot-configs/{config_path}" if config_path else "/v1/chatbot-configs"
+            return forward_request(f"{CHATBOT_SERVICE_URL}{endpoint}")
+        except Exception as e:
+            current_app.logger.error(f"Error forwarding GET request: {str(e)}")
+            return {"error": "Internal gateway error"}, 500
+
+    def post(self, config_path=None):
+        try:
+            endpoint = f"/v1/chatbot-configs/{config_path}" if config_path else "/v1/chatbot-configs"
+            return forward_request(f"{CHATBOT_SERVICE_URL}{endpoint}")
+        except Exception as e:
+            current_app.logger.error(f"Error forwarding POST request: {str(e)}")
+            return {"error": "Internal gateway error"}, 500
+
+    def put(self, config_path):
+        try:
+            return forward_request(f"{CHATBOT_SERVICE_URL}/v1/chatbot-configs/{config_path}")
+        except Exception as e:
+            current_app.logger.error(f"Error forwarding PUT request: {str(e)}")
+            return {"error": "Internal gateway error"}, 500
+
+    def delete(self, config_path):
+        try:
+            return forward_request(f"{CHATBOT_SERVICE_URL}/v1/chatbot-configs/{config_path}")
+        except Exception as e:
+            current_app.logger.error(f"Error forwarding DELETE request: {str(e)}")
+            return {"error": "Internal gateway error"}, 500
+
+@v1_namespace.route('/chat')
+class ChatProxy(Resource):
+    def post(self):
+        try:
+            return forward_request(f"{CHATBOT_SERVICE_URL}/v1/chat")
+        except Exception as e:
+            current_app.logger.error(f"Error forwarding POST request: {str(e)}")
+            return {"error": "Internal gateway error"}, 500
+
+@v1_namespace.route('/chat/<string:chat_id>')
+class ChatHistoryProxy(Resource):
+    def get(self, chat_id):
+        try:
+            return forward_request(f"{CHATBOT_SERVICE_URL}/v1/chat/{chat_id}")
+        except Exception as e:
+            current_app.logger.error(f"Error forwarding GET request: {str(e)}")
+            return {"error": "Internal gateway error"}, 500
+
+@v1_namespace.route('/chat/save')
+class SaveChatProxy(Resource):
+    def post(self):
+        try:
+            return forward_request(f"{CHATBOT_SERVICE_URL}/v1/chat/save")
+        except Exception as e:
+            current_app.logger.error(f"Error forwarding POST request: {str(e)}")
+            return {"error": "Internal gateway error"}, 500
+
+@v1_namespace.route('/chat/saved')
+class SavedChatsProxy(Resource):
+    def get(self):
+        try:
+            return forward_request(f"{CHATBOT_SERVICE_URL}/v1/chat/saved")
+        except Exception as e:
+            current_app.logger.error(f"Error forwarding GET request: {str(e)}")
+            return {"error": "Internal gateway error"}, 500
+
+@v1_namespace.route('/chat/session')
+class ChatSessionProxy(Resource):
+    def post(self):
+        try:
+            return forward_request(f"{CHATBOT_SERVICE_URL}/v1/chat/session")
         except Exception as e:
             current_app.logger.error(f"Error forwarding POST request: {str(e)}")
             return {"error": "Internal gateway error"}, 500
