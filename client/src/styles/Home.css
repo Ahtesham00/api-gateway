@@ -1,0 +1,350 @@
+/* ===========================
+   Global Styles for Home Page
+=========================== */
+.home-container {
+  background: transparent;
+  padding: 20px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* ===========================
+   Left Header Section
+=========================== */
+.header-section {
+  display: flex;
+  justify-content: flex-start; /* Push title to the left and balance to the right */
+  align-items: flex-end; /* Align balance-info div to the bottom */
+  gap: 20px; /* Gap between title and balance info */
+  margin-bottom: 20px;
+}
+
+/* Title Section */
+.header-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.heading {
+  font-weight: 500 !important;
+  margin-bottom: 0 !important;
+}
+
+.header-subtitle {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 0;
+}
+
+/* Divider */
+.header-divider {
+  height: 50px;
+  background-color: #c0d2e3;
+  margin: 0;
+}
+
+/* Balance Info */
+.balance-info {
+  display: flex;
+  gap: 40px; /* Spacing between balance items */
+}
+
+.balance-item {
+  display: flex;
+  align-items: flex-start; /* Align icon to the top */
+  gap: 10px; /* Space between icon and text */
+}
+
+.balance-icon {
+  font-size: 20px;
+  color: #000;
+}
+
+.balance-text {
+  display: flex;
+  flex-direction: column; /* Stack value and label vertically */
+  line-height: 1.2; /* Control line spacing */
+}
+
+.balance-value {
+  font-weight: 600;
+  font-size: 16px;
+  color: #000;
+  margin: 0;
+}
+
+.balance-label {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
+
+/* ===========================
+   Right Header Section
+=========================== */
+/* Right Header Section */
+.right-header-section {
+  display: flex;
+  justify-content: flex-start; /* Push title to the left and balance to the right */
+  align-items: flex-end; /* Align balance-info div to the bottom */
+  gap: 20px;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+/* Search Bar Container */
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  border: none;
+}
+
+.custom-search-bar {
+  border: none;
+  border-bottom: 1px solid #c0d2e3 !important;
+  border-radius: 0;
+  outline: none !important; /* Removes the default focus outline */
+  box-shadow: none !important; /* Ensures no focus shadow */
+  font-size: 14px;
+  padding: 4px 8px;
+  width: 200px;
+  background: transparent !important; /* Transparent background by default */
+}
+
+.custom-search-bar::placeholder {
+  color: #888;
+}
+
+.custom-search-bar:focus {
+  background: transparent !important; /* Maintain transparency on focus */
+  border-bottom: 1px solid #c0d2e3 !important; /* Keeps border consistent */
+  outline: none !important; /* Removes the blue border */
+  box-shadow: none !important; /* Removes any focus shadow */
+}
+
+/* Search Icon */
+.search-icon {
+  color: #888;
+  font-size: 16px;
+}
+
+/* Icons Section */
+.header-icons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.icon {
+  font-size: 20px;
+  color: #000;
+  cursor: pointer;
+}
+
+.notification-badge .ant-badge-dot {
+  background-color: #ff4d4f; /* Red dot for notification badge */
+}
+
+/* ===========================
+   Activity Section
+=========================== */
+/* Card Styling */
+.activity-card {
+  background: transparent;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: 0 !important;
+}
+
+.activity-content {
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  padding-left: 0 !important;
+}
+
+/* Title and Link */
+.activity-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #000;
+}
+
+.see-all-link {
+  font-size: 14px;
+  color: #888;
+  text-decoration: none;
+}
+
+/* Bar Chart Container */
+.bar-chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align chart to the left */
+  background: transparent;
+}
+
+/* Task Boxes */
+.activity-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-box {
+  background-color: #f7faff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-time {
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #5C62FF;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.task-icon {
+  color: #888;
+  font-size: 16px;
+}
+
+.task-title {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+
+/* ===========================
+   Teachers Section
+=========================== */
+.teachers-card {
+  margin-bottom: 20px;
+}
+
+.teacher-list {
+  display: flex;
+  gap: 30px;
+  justify-content: space-around;
+}
+
+.teacher {
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+}
+
+.teacher .ant-avatar {
+  margin-bottom: 8px;
+}
+
+/* ===========================
+   Popular Courses Section
+=========================== */
+.courses-card {
+  margin-bottom: 20px;
+}
+
+.courses-card .ant-card {
+  background: #f7faff;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.courses-card .ant-card-title {
+  font-weight: 600;
+}
+
+/* ===========================
+   Right Panel - English Test
+=========================== */
+.english-test-card {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: #f7faff;
+  border-radius: 12px;
+}
+
+.english-test-card button {
+  margin: 10px 0;
+}
+
+/* ===========================
+   Right Panel - English for Travelling
+=========================== */
+.travelling-card {
+  padding: 15px;
+  margin-bottom: 20px;
+  background: #f7faff;
+  border-radius: 12px;
+}
+
+.travelling-card h5 {
+  margin-bottom: 8px;
+}
+
+.travelling-card p {
+  margin: 0;
+  color: #555;
+  font-size: 14px;
+}
+
+/* ===========================
+   Right Panel - My Courses
+=========================== */
+.my-courses-card {
+  padding: 15px;
+  background: #f7faff;
+  border-radius: 12px;
+}
+
+.course-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.course-item .anticon {
+  color: #1890ff;
+  margin-right: 8px;
+}
+
+.course-item span {
+  flex: 1;
+  font-size: 14px;
+  color: #555;
+}
+
+/* ===========================
+   Common Ant Design Overrides
+=========================== */
+.ant-card {
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.ant-card-head {
+  background: #e6f7ff;
+  border-bottom: none;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ant-card-body {
+  padding: 15px;
+}

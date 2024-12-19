@@ -1,27 +1,36 @@
-import React from 'react';
-import { Button, Card, Typography } from 'antd';
+import React from "react";
+import { Layout, Row, Col } from "antd";
+import LeftHeaderSection from "../components/Home/LeftHeaderSection";
+import RightHeaderSection from "../components/Home/RightHeaderSection";
+import ActivitySection from "../components/Home/ActivitySection";
+import TeachersSection from "../components/Home/TeachersSection";
+import PopularCoursesSection from "../components/Home/PopularCoursesSection";
+import RightPanelSection from "../components/Home/RightPanelSection";
+import "../styles/Home.css";
 
-const { Title, Paragraph } = Typography;
+const { Content } = Layout;
 
 const Home = () => {
   return (
-    <div style={{ 
-      minHeight: '100vh', 
-      display: 'flex', 
-      justifyContent: 'center', 
-      alignItems: 'center', 
-      background: 'linear-gradient(to bottom, #9f7aea, #667eea)' 
-    }}>
-      <Card style={{ width: '500px', textAlign: 'center', borderRadius: '16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}>
-        <Title level={2}>Elevate your payment capabilities</Title>
-        <Paragraph>
-          Create outstanding shopping experiences, smoothly manage transactions, and facilitate business.
-        </Paragraph>
-        <Button type="primary" size="large" style={{ borderRadius: '8px' }}>
-          Contact Sales
-        </Button>
-      </Card>
-    </div>
+    <Content className="home-container">
+      <Row gutter={24}>
+        {/* Left Panel */}
+        <Col span={16} className="left-panel">
+          <div className="left-panel-sections">
+            <LeftHeaderSection />
+            <ActivitySection />
+            <TeachersSection />
+            <PopularCoursesSection />
+          </div>
+        </Col>
+
+        {/* Right Panel */}
+        <Col span={8} className="right-panel">
+        <RightHeaderSection />
+          <RightPanelSection />
+        </Col>
+      </Row>
+    </Content>
   );
 };
 

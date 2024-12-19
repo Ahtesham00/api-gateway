@@ -58,7 +58,7 @@ const RightPanel = () => {
       console.log("Payload being sent to the server:", payload);
 
       const response = await axios.post(
-        "/v1/auth/v1/signup", // Endpoint
+        "/v1/auth/signup", // Endpoint
         payload, // Payload
         {
           headers: {

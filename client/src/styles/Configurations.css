@@ -1,0 +1,122 @@
+/* Main Container */
+.configurations-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: transparent;
+}
+
+.configurations-content {
+  width: 70%;
+  background-color: transparent; /* Solid white for clarity */
+  border-radius: 12px;
+  padding: 24px;
+  height: 100vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  /* Hide scrollbar for modern browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+/* Header Section */
+.configurations-header {
+  width: 100%;
+}
+
+/* Model Sensitivity Section */
+.model-sensitivity {
+  /* display: flex; */
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Full-width Row for Sliders */
+.full-width-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.slider-col {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.slider-card {
+  width: 100%; /* Each card takes full width of its column */
+  margin: 0; /* Remove any margin */
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.slider-range {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  color: #888;
+  font-size: 12px;
+}
+
+
+.dropdown-section {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.dropdown {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.dropdown .ant-select-selector {
+  background-color: transparent !important; /* Removes background color */
+  border: 1px solid #d9d9d9; /* Optional: Keeps the border visible */
+  box-shadow: none; /* Removes any default shadow */
+}
+
+
+/* Divider */
+.ant-divider-horizontal {
+  margin: 10px 0;
+}
+
+/* Adjust placeholder color */
+.dropdown .ant-select-selection-placeholder {
+  color: #999 !important; 
+  opacity: 1; 
+}
+
+/* Transparent TextArea */
+.textarea-transparent {
+  background-color: transparent !important; /* Transparent background */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Light border for better visibility */
+  border-radius: 6px; /* Rounded corners */
+  color: #333; /* Text color */
+  font-size: 14px;
+  padding: 10px; /* Padding for better spacing */
+  outline: none; /* Remove outline on focus */
+  box-shadow: none; /* Remove box-shadow */
+  margin-top: 8px;
+}
+
+.textarea-transparent::placeholder {
+  color: rgba(0, 0, 0, 0.4); /* Adjust placeholder color */
+}
+
+.save-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  margin-top: 20px;
+}

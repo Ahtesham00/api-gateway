@@ -1,31 +1,72 @@
-import React from "react";
+import React, { useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setTokens } from "../store";
+import axios from "axios";
 import { Button, Typography, Space, Row, Col, Input, message } from "antd";
-import "../styles/Signup.css";
 
 const { Title, Text } = Typography;
 
 const TwoStepAuth = () => {
-  const onChange = (text) => {
-    console.log("onChange:", text);
+  const dispatch = useDispatch();
+  const email = useSelector((state) => state.auth.email);
+
+  // State for the 6 OTP input fields
+  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const inputRefs = useRef([]);
+
+  // Handle OTP input change
+  const handleChange = (value, index) => {
+    const updatedOtp = [...otp];
+    updatedOtp[index] = value.slice(0, 1); // Ensure only one character
+    setOtp(updatedOtp);
+
+    // Focus on the next input if available
+    if (value && index < 5) {
+      inputRefs.current[index + 1]?.focus();
+    }
   };
 
-  const onInput = (value) => {
-    console.log("onInput:", value);
+  // Handle backspace navigation
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
   };
 
-  const sharedProps = {
-    onChange,
-    onInput,
-  };
-
-  const handleSubmit = () => {
-    if (!sharedProps.onInput) {
-      return message.error("Please enter the OTP.");
+  // Handle OTP verification
+  const handleVerify = async () => {
+    const code = otp.join(""); // Combine OTP fields into a single string
+    if (code.length !== 6) {
+      return message.error("Please enter a valid 6-digit OTP.");
     }
 
-    // Simulating submission (replace with your API call)
-    message.success("OTP verified successfully!");
-    console.log("OTP submitted:", sharedProps.onInput);
+    const payload = { email, code };
+    console.log("payload", payload);
+
+    try {
+      const response = await axios.post("/v1/auth/verify-2fa", payload, {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.data.success) {
+        const { access_token, refresh_token } = response.data.data;
+        console.log("response", response.data.data);
+
+        // Save tokens in Redux
+        dispatch(setTokens({ access_token, refresh_token }));
+
+        // Store tokens and redirect to home page
+        localStorage.setItem("access_token", access_token);
+        localStorage.setItem("refresh_token", refresh_token);
+        window.location.href = "/home";
+      } else {
+        message.error(response.data.message || "Verification failed.");
+      }
+    } catch (error) {
+      message.error(
+        error.response?.data?.message || "Failed to verify the code."
+      );
+    }
   };
 
   return (
@@ -62,41 +103,46 @@ const TwoStepAuth = () => {
             textAlign: "center",
           }}
         >
-          <Title
-            level={1}
-            style={{
-              color: "white",
-              fontSize: "clamp(1.5rem, 2rem, 2.5rem)",
-              marginBottom: "0px",
-            }}
-          >
+          <Title level={1} style={{ color: "white" }}>
             Two-Step Authentication
           </Title>
           <Text style={{ color: "#b3b3b3" }}>
-            Enter the 6-digit code sent to your email or phone
+            Enter the 6-digit code sent to your email or phone.
           </Text>
+
+          {/* OTP Input Fields */}
           <Space
-            direction="vertical"
             size="small"
-            style={{ width: "100%", alignItems: "center" }}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+            }}
           >
-            {/* OTP Input with formatter */}
-            <Input.OTP
-              formatter={(str) => str.toUpperCase()} // Convert input to uppercase
-              {...sharedProps} // Attach shared properties
-              style={{
-                backgroundColor: "#3b364c",
-                color: "white",
-                textAlign: "center",
-                fontWeight: "bold",
-                fontSize: "1.2rem",
-                letterSpacing: "5px",
-                width: "100%",
-                border: "none",
-                borderRadius: "8px",
-              }}
-            />
+            {otp.map((digit, index) => (
+              <Input
+                key={index}
+                value={digit}
+                onChange={(e) => handleChange(e.target.value, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                ref={(el) => (inputRefs.current[index] = el)}
+                maxLength={1}
+                style={{
+                  backgroundColor: "#3b364c",
+                  color: "white",
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  fontSize: "1.2rem",
+                  width: "3rem",
+                  height: "3rem",
+                  border: "none",
+                  borderRadius: "8px",
+                  margin: "0 5px",
+                }}
+              />
+            ))}
           </Space>
+
           <Button
             type="primary"
             size="large"
@@ -106,7 +152,7 @@ const TwoStepAuth = () => {
               borderRadius: "8px",
               width: "100%",
             }}
-            onClick={handleSubmit}
+            onClick={handleVerify}
           >
             Verify OTP
           </Button>

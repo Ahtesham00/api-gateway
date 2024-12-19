@@ -1,0 +1,88 @@
+.custom-sidebar {
+  background: transparent !important;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 20px;
+  padding: 25px;
+  padding-left: 30px;
+  padding-right: 0px;
+  border-radius: 1px;
+  /* border-right: 1px solid #e0e0e0; */
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between logo image and text */
+  padding: 20px 0px;
+}
+
+.sidebar-logo-image {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%; /* Optional: Makes the logo circular */
+}
+
+.sidebar-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
+
+.sidebar-menu {
+  flex: 1;
+  border-right: none;
+}
+
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px 10px;
+}
+
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.username {
+  font-weight: 600;
+  color: #333;
+}
+
+.user-plan {
+  font-size: 12px;
+  color: #888;
+}
+
+.logout-menu .ant-menu-item {
+  padding-left: 10px !important; /* Align logout button to the left */
+  color: #333;
+}
+
+.logout-menu .ant-menu-item a {
+  color: #333;
+}
+
+.ant-menu-item {
+  margin: 0;
+  padding-left: 10px !important;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.ant-menu-item-selected {
+  background-color: #ffffff !important; /* Semi-transparent selected background */
+  border-radius: 10px;
+  padding-left: 10px !important;
+}
+
+.ant-menu-item-selected a {
+  color: #333 !important;
+}

@@ -1,0 +1,18 @@
+.site-layout {
+  background: linear-gradient(
+    135deg,                       /* Diagonal direction: top-left to bottom-right */
+    #E9F2FA 2%,  /* Light blue hint at the top-left corner */
+    #CAE1F3 10%,                 /* Darker blue starts close to the light blue */
+    #F7FAFF 100%                 /* Light blue fades to the bottom-right */
+  );
+}
+
+
+
+
+.main-content {
+  padding: 0px;
+  background: transparent; /* Ensure content inherits the gradient */
+  height: 100vh;
+  overflow-y: hidden;
+}
