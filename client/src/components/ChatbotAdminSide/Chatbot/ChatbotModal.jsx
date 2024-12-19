@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Input } from "antd";
 import { SendOutlined, CloseOutlined } from "@ant-design/icons";
 import "../../../styles/ChatbotAdmin.css";
+import bgImage from "../../../assets/chrome-ball.png"
 
 const { TextArea } = Input;
 
@@ -34,6 +35,7 @@ const ChatbotModal = ({ isOpen, onClose }) => {
         justifyContent: "space-between",
         height: "80vh",
         overflow: "hidden",
+        background: "#f9f9f9", // Neutral light background
       }}
     >
       {/* Header */}
@@ -52,7 +54,7 @@ const ChatbotModal = ({ isOpen, onClose }) => {
               width: "24px",
               height: "24px",
               borderRadius: "50%",
-              backgroundColor: "#00c853",
+              backgroundColor: "#70A1B9",
             }}
           />
           <span
@@ -75,7 +77,7 @@ const ChatbotModal = ({ isOpen, onClose }) => {
         />
       </div>
 
-      {/* Chat Body */}
+      {/* Chat Body with Image */}
       <div
         style={{
           flex: 1,
@@ -83,25 +85,55 @@ const ChatbotModal = ({ isOpen, onClose }) => {
           overflowY: "auto",
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
           gap: "12px",
+          position: "relative",
+          background: "#ffffff",
         }}
       >
-        {messages.map((msg, idx) => (
-          <div
-            key={idx}
-            style={{
-              alignSelf: msg.sender === "user" ? "flex-end" : "flex-start",
-              background: msg.sender === "user" ? "#0078ff" : "#f1f1f1",
-              color: msg.sender === "user" ? "#ffffff" : "#000000",
-              padding: "10px 16px",
-              borderRadius: "12px",
-              maxWidth: "75%",
-              wordBreak: "break-word",
-            }}
-          >
-            {msg.text}
-          </div>
-        ))}
+        {messages.length === 0 ? (
+          <>
+            {/* Chatbot Image */}
+            <img
+              src={bgImage} // Replace with your chatbot image URL
+              alt="Chatbot Icon"
+              style={{
+                width: "100px",
+                height: "100px",
+                marginBottom: "16px",
+                borderRadius: "50%", // Optional: Make it circular
+              }}
+            />
+            <span
+              style={{
+                fontSize: "16px",
+                fontWeight: "500",
+                color: "#666666",
+                textAlign: "center",
+              }}
+            >
+              Ask me anything!
+            </span>
+          </>
+        ) : (
+          messages.map((msg, idx) => (
+            <div
+              key={idx}
+              style={{
+                alignSelf: msg.sender === "user" ? "flex-end" : "flex-start",
+                background: msg.sender === "user" ? "#0078ff" : "#f1f1f1",
+                color: msg.sender === "user" ? "#ffffff" : "#000000",
+                padding: "10px 16px",
+                borderRadius: "12px",
+                maxWidth: "75%",
+                wordBreak: "break-word",
+              }}
+            >
+              {msg.text}
+            </div>
+          ))
+        )}
       </div>
 
       {/* Input Section */}
@@ -114,16 +146,6 @@ const ChatbotModal = ({ isOpen, onClose }) => {
           gap: "8px",
         }}
       >
-        {/* <Button
-          type="text"
-          style={{
-            color: "#00c853",
-            fontWeight: "bold",
-            fontSize: "14px",
-          }}
-        >
-          + Topics
-        </Button> */}
         <TextArea
           rows={1}
           value={input}
@@ -145,6 +167,7 @@ const ChatbotModal = ({ isOpen, onClose }) => {
             borderRadius: "12px",
             padding: "0 16px",
             height: "40px",
+            backgroundColor: "#70A1B9"
           }}
         />
       </div>
