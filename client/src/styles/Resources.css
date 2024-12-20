@@ -1,5 +1,42 @@
 /* Resources.css */
 
+.custom-table .ant-table {
+    background-color: transparent !important; /* Semi-transparent white */
+    border-radius: 12px; /* Rounded corners */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Hide overflow for smooth edges */
+  }
+  
+  .custom-table .ant-table-wrapper {
+    height: 70vh;
+    overflow-y: auto;
+  }
+  
+  /* Table Header Background */
+  .custom-table .ant-table-thead > tr > th {
+    background-color: #f7faff !important; /* Light gray header background */
+    color: #333 !important; /* Header text color */
+    font-weight: bold; /* Bold font */
+  }
+  
+  /* Table Body Background */
+  .custom-table .ant-table-tbody > tr > td {
+    background-color: transparent !important; /* Semi-transparent white */
+  }
+  
+  /* Table Row Hover Effect */
+  .custom-table .ant-table-tbody > tr:hover > td {
+    background-color: rgba(0, 0, 0, 0.05) !important; /* Light gray on hover */
+  }
+  
+  /* Active Row */
+  .custom-table .ant-table-row-selected > td {
+    background-color: rgba(100, 149, 237, 0.2) !important; /* Light blue for selected rows */
+  }
+  
 /* Container styling */
 .resources-container {
     padding: 20px;

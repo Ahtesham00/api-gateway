@@ -1,32 +1,51 @@
 import React from "react";
-import { Button, Table, Dropdown, Menu, Typography, Space } from "antd";
-import { MoreOutlined } from "@ant-design/icons";
-import "../styles/Resources.css"; // Add styles here if necessary
+import { Button, Table, Dropdown, Menu, Typography } from "antd";
+import { MoreOutlined, FileWordOutlined, FilePdfOutlined, FileTextOutlined } from "@ant-design/icons";
+import "../styles/Resources.css";
 
 const { Title } = Typography;
 
 const Resources = () => {
-  // Sample data for the table
+  // Sample data for the table, now includes size and extension
   const data = [
     {
       key: "1",
       fileName: "Dashboard tech requirements",
       updatedBy: "Amélie Laurent",
       lastModified: "Jan 4, 2024",
+      extension: "docx",
+      size: "220 KB"
     },
     {
       key: "2",
       fileName: "Marketing site requirements",
       updatedBy: "Ammar Foley",
       lastModified: "Jan 6, 2024",
+      extension: "docx",
+      size: "488 KB"
     },
     {
       key: "3",
       fileName: "Q4_2023 Reporting",
       updatedBy: "Sienna Hewitt",
       lastModified: "Jan 8, 2024",
+      extension: "pdf",
+      size: "1.2 MB"
     },
   ];
+
+  // Choose icon based on extension
+  const getFileIcon = (extension) => {
+    switch (extension) {
+      case "docx":
+      case "doc":
+        return <FileWordOutlined style={{ fontSize: 20, color: '#1890ff' }} />;
+      case "pdf":
+        return <FilePdfOutlined style={{ fontSize: 20, color: '#f5222d' }} />;
+      default:
+        return <FileTextOutlined style={{ fontSize: 20, color: '#595959' }} />;
+    }
+  };
 
   // Columns for the table
   const columns = [
@@ -34,6 +53,20 @@ const Resources = () => {
       title: "File Name",
       dataIndex: "fileName",
       key: "fileName",
+      render: (_, record) => {
+        const icon = getFileIcon(record.extension);
+        return (
+          <div style={{ display: "flex", alignItems: "center" }}>
+            {icon}
+            <div style={{ marginLeft: "8px" }}>
+              <div style={{ fontWeight: "500" }}>{record.fileName}</div>
+              <div style={{ fontSize: "0.85rem", color: "#888" }}>
+                {record.size} • {record.extension}
+              </div>
+            </div>
+          </div>
+        );
+      }
     },
     {
       title: "Updated By",
@@ -81,6 +114,7 @@ const Resources = () => {
         columns={columns}
         pagination={{ position: ["bottomCenter"] }}
         style={{ marginTop: "20px" }}
+        className="custom-table"
       />
     </div>
   );
