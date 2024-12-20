@@ -1,0 +1,61 @@
+/* Resources.css */
+
+/* Container styling */
+.resources-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+  
+  /* Heading and upload button section */
+  .resources-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .resources-header .ant-typography {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .resources-header .ant-btn-primary {
+    background-color: #1890ff;
+    border-color: #1890ff;
+  }
+  
+  /* Table styles */
+  .ant-table {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ant-table-thead > tr > th {
+    background-color: #fafafa;
+    font-weight: 600;
+    color: #595959;
+  }
+  
+  .ant-table-tbody > tr > td {
+    font-size: 0.9rem;
+  }
+  
+  .ant-dropdown-menu-item-danger {
+    color: #ff4d4f;
+  }
+  
+  .ant-dropdown-menu-item-danger:hover {
+    background-color: #fff1f0;
+  }
+  
+  /* Button for more options */
+  .ant-btn-text {
+    color: #595959;
+  }
+  
+  .ant-btn-text:hover {
+    color: #1890ff;
+  }
+  

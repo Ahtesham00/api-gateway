@@ -144,7 +144,7 @@ const Sidebar = () => {
                 <Link to="/chatbot">Chatbot</Link>
               </Menu.Item>
               <Menu.Item key="4" icon={<CalendarOutlined />}>
-                <Link to="/schedule">Resource</Link>
+                <Link to="/resources">Resource</Link>
               </Menu.Item>
               <Menu.Item key="5" icon={<BookOutlined />}>
                 <Link to="/my-courses">Avatar</Link>

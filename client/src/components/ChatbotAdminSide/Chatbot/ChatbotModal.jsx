@@ -1,14 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Modal, Button, Input } from "antd";
 import { SendOutlined, CloseOutlined } from "@ant-design/icons";
 import "../../../styles/ChatbotAdmin.css";
-import bgImage from "../../../assets/chrome-ball.png"
+import bgImage from "../../../assets/chrome-ball.png";
 
 const { TextArea } = Input;
 
 const ChatbotModal = ({ isOpen, onClose }) => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    { text: "Hello! How can I assist you today?", sender: "bot" },
+    { text: "Can you tell me about the latest updates?", sender: "user" },
+    { text: "Sure! Here are the recent updates:", sender: "bot" },
+    { text: "Can you tell me about the latest updates?", sender: "user" },
+    { text: "Sure! Here are the recent updates:", sender: "bot" },
+    { text: "Can you tell me about the latest updates?", sender: "user" },
+    { text: "Sure! Here are the recent updates:", sender: "bot" },
+    { text: "Can you tell me about the latest updates?", sender: "user" },
+    { text: "Sure! Here are the recent updates:", sender: "bot" },
+    { text: "Can you tell me about the latest updates?", sender: "user" },
+    { text: "Sure! Here are the recent updates:", sender: "bot" },
+    { text: "Can you tell me about the latest updates?", sender: "user" },
+    { text: "Sure! Here are the recent updates:", sender: "bot" },
+    { text: "Can you tell me about the latest updates?", sender: "user" },
+    { text: "Sure! Here are the recent updates:", sender: "bot" },
+    { text: "Can you tell me about the latest updates?", sender: "user" },
+    { text: "Sure! Here are the recent updates:", sender: "bot" },
+  ]);
   const [input, setInput] = useState("");
+
+  const chatBodyRef = useRef(null);
 
   const handleSend = () => {
     if (input.trim()) {
@@ -16,6 +36,12 @@ const ChatbotModal = ({ isOpen, onClose }) => {
       setInput("");
     }
   };
+
+  useEffect(() => {
+    if (chatBodyRef.current) {
+      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <Modal
@@ -25,8 +51,8 @@ const ChatbotModal = ({ isOpen, onClose }) => {
       centered
       width={600}
       style={{
-        borderRadius: "24px", // Increase the border radius of the modal
-        overflow: "hidden", // Ensures content doesn't overflow
+        borderRadius: "24px",
+        overflow: "hidden",
       }}
       bodyStyle={{
         padding: "0px",
@@ -35,7 +61,7 @@ const ChatbotModal = ({ isOpen, onClose }) => {
         justifyContent: "space-between",
         height: "80vh",
         overflow: "hidden",
-        background: "#f9f9f9", // Neutral light background
+        background: "#f9f9f9",
       }}
     >
       {/* Header */}
@@ -77,32 +103,43 @@ const ChatbotModal = ({ isOpen, onClose }) => {
         />
       </div>
 
-      {/* Chat Body with Image */}
+      {/* Chat Body with Hidden Scrollbar */}
       <div
+        ref={chatBodyRef}
         style={{
           flex: 1,
-          padding: "20px",
+          paddingTop: "20px",
+          paddingBottom: "20px",
           overflowY: "auto",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
           gap: "12px",
           position: "relative",
           background: "#ffffff",
+          scrollbarWidth: "none", // For Firefox
+          msOverflowStyle: "none", // For IE and Edge
         }}
+        className="chat-body"
       >
+        {/* Hide scrollbar for Webkit browsers */}
+        <style>
+          {`
+            .chat-body::-webkit-scrollbar {
+              display: none;
+            }
+          `}
+        </style>
         {messages.length === 0 ? (
           <>
-            {/* Chatbot Image */}
             <img
-              src={bgImage} // Replace with your chatbot image URL
+              src={bgImage}
               alt="Chatbot Icon"
               style={{
                 width: "100px",
                 height: "100px",
                 marginBottom: "16px",
-                borderRadius: "50%", // Optional: Make it circular
+                borderRadius: "50%",
               }}
             />
             <span
@@ -122,7 +159,7 @@ const ChatbotModal = ({ isOpen, onClose }) => {
               key={idx}
               style={{
                 alignSelf: msg.sender === "user" ? "flex-end" : "flex-start",
-                background: msg.sender === "user" ? "#0078ff" : "#f1f1f1",
+                background: msg.sender === "user" ? "#63BDE1" : "#f1f1f1",
                 color: msg.sender === "user" ? "#ffffff" : "#000000",
                 padding: "10px 16px",
                 borderRadius: "12px",
@@ -167,7 +204,7 @@ const ChatbotModal = ({ isOpen, onClose }) => {
             borderRadius: "12px",
             padding: "0 16px",
             height: "40px",
-            backgroundColor: "#70A1B9"
+            backgroundColor: "#63BDE1",
           }}
         />
       </div>
