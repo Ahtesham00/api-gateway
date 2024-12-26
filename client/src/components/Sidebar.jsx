@@ -54,7 +54,8 @@ const Sidebar = () => {
         // Clear localStorage
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-
+        localStorage.removeItem("persist:sidebar");
+        localStorage.removeItem("persist:auth");
         // Redirect to login
         navigate("/");
       },
